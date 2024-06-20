@@ -18,17 +18,18 @@ const AppNavBar = () => {
           <Nav.Link as={Link} to="/products">
             Products
           </Nav.Link>
-          <Nav.Link as={Link} to="/register">
-            Register
-          </Nav.Link>
+
           {user.id !== null ? (
             <>
-              <Nav.Link as={Link} to="/login">
+              <Nav.Link as={Link} to="/logout">
                 Logout
               </Nav.Link>
             </>
           ) : (
             <>
+              <Nav.Link as={Link} to="/register">
+                Register
+              </Nav.Link>
               <Nav.Link as={Link} to="/login">
                 Login
               </Nav.Link>

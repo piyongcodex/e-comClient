@@ -3,7 +3,7 @@ import React from "react";
 // import Banner from "./components/banner/Banner";
 import { useState, useEffect, useContext } from "react";
 import { AppNavBar, Banner } from "./components";
-import { LoginPage, RegisterPage, HomePage } from "./pages";
+import { LoginPage, RegisterPage, HomePage, Logout } from "./pages";
 import { ProductPage } from "./users";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserProvider } from "./UserContext";
@@ -58,6 +58,7 @@ const Main = () => {
             <Route path="/products" element={<ProductPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/logout" element={<Logout />} />
           </Routes>
         </Router>
       </UserProvider>
