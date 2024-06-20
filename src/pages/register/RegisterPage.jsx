@@ -1,12 +1,13 @@
 import React from "react";
 import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
 import UserContext from "../../UserContext";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import Swal from "sweetalert2";
 
 const RegisterPage = () => {
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
   // For the Input fields
   const [firstName, setFirstName] = useState("");
@@ -54,6 +55,7 @@ const RegisterPage = () => {
             icon: "success",
             // text: "Welcome to !",
           });
+          navigate("/login");
         } else if (data.error === "Email invalid") {
           Swal.fire({
             title: "Email is Invalid",

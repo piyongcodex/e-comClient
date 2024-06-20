@@ -4,7 +4,8 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { AppNavBar, Banner } from "./components";
 import { LoginPage, RegisterPage, HomePage, Logout } from "./pages";
-import { ProductPage } from "./users";
+import { AddProduct, DashboardPage } from "./admin";
+import { ProductPage, ProfilePage } from "./users";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserProvider } from "./UserContext";
 
@@ -14,6 +15,7 @@ const Main = () => {
   const [user, setUser] = useState({
     id: null,
     isAdmin: null,
+    firstName: null,
   });
 
   const unsetUser = () => {
@@ -35,6 +37,7 @@ const Main = () => {
           setUser({
             id: data.user._id,
             isAdmin: data.user.isAdmin,
+            firstName: data.user.firstName,
           });
         } else {
           setUser({
@@ -59,6 +62,12 @@ const Main = () => {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/logout" element={<Logout />} />
+            {/* ADMIN ROUTE */}
+            <Route path="/addProduct" element={<AddProduct />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/profilepage" element={<ProfilePage />} />
+
+            {/* End of Admin Route */}
           </Routes>
         </Router>
       </UserProvider>

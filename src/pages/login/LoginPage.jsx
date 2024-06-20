@@ -30,18 +30,23 @@ const LoginPage = () => {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         console.log(email);
         console.log(password);
         if (data.access) {
           localStorage.setItem("token", data.access);
           retrieveUserDetails(data.access);
-
+          console.table(data);
           Swal.fire({
             title: "Login Successful",
             icon: "success",
-            text: "Welcome to Zuitt!",
-          });
+            text: `Welcome ${data.user.firstName}`,
+            timer: 1000, // to display the alert with 2 sec
+            showConfirmButton: true,
+          }).then(() => {
+            setTimeout(() => {
+              window.location.reload();
+            }); // Delay of 2 second
+          }, 1000);
         } else {
           Swal.fire({
             title: "Authentication failed",
@@ -85,8 +90,9 @@ const LoginPage = () => {
     <Navigate to="/products" />
   ) : (
     <Container>
+      <h1 className="display-1 text-center ">Login Page</h1>
       <Col>
-        <Row className="justify-content-center align-items-center vh-100">
+        <Row className="justify-content-center align-items-center ">
           {/* <h1 className="">Login Page</h1> */}
           <Card>
             {/* <Card.Header>Login Page</Card.Header> */}
