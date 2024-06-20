@@ -18,7 +18,7 @@ const ProductPage = () => {
     <Container>
       <Row>
         {showProduct.map((product) => (
-          <Col key={product.id} className="p-5 text-center">
+          <Col key={product._id} className="p-5 text-center">
             <div>
               <h3>{product.name}</h3>
               <p>{product.description}</p>
