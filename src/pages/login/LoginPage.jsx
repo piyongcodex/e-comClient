@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
+import { Form, Button, Container, Col, Row, Card } from "react-bootstrap";
 import UserContext from "../../UserContext";
 import { useState, useEffect, useContext } from "react";
 import { Navigate } from "react-router-dom";
@@ -73,9 +73,12 @@ const LoginPage = () => {
       .then((data) => {
         setUser({
           id: data.user._id,
+          isAdmin: data.user.isAdmin,
         });
+        // console.table(user.isAdmin);
       });
   };
+  // return;
 
   useEffect(() => {
     // Validation to enable submit button when all fields are populated and both passwords match
@@ -86,13 +89,75 @@ const LoginPage = () => {
     }
   }, [email, password]);
 
+  // First Code ==========================================
+  // return (user.id !== null ? (
+  //   <>
+  //   {
+  //     user.isAdmin === true ?
+  //     (<Navigate to="/dashboard">):
+  //      (<Navigate to="/products" />)
+  //   }
+  //   </>
+  // ) : (
+  //   <Container>
+  //     <h1 className="display-1 text-center mt-5 mb-5">Login Page</h1>
+  //     <Row>
+  //       <Col className="justify-content-center align-items-center ">
+  //         {/* <h1 className="">Login Page</h1> */}
+  //         <Card>
+  //           {/* <Card.Header>Login Page</Card.Header> */}
+  //           <Card.Body>
+  //             <Form onSubmit={(e) => login(e)}>
+  //               <Form.Group className="mb-3" controlId="formBasicEmail">
+  //                 <Form.Label>Email address</Form.Label>
+  //                 <Form.Control
+  //                   type="email"
+  //                   placeholder="Enter email"
+  //                   value={email}
+  //                   onChange={(e) => setEmail(e.target.value)}
+  //                   required
+  //                 />
+  //                 <Form.Text className="text-muted">
+  //                   We'll never share your email with anyone else.
+  //                 </Form.Text>
+  //               </Form.Group>
+
+  //               <Form.Group className="mb-3" controlId="formBasicPassword">
+  //                 <Form.Label>Password</Form.Label>
+  //                 <Form.Control
+  //                   type="password"
+  //                   placeholder="Password"
+  //                   value={password}
+  //                   onChange={(e) => setPassword(e.target.value)}
+  //                   required
+  //                 />
+  //               </Form.Group>
+
+  //               <Button variant="primary" type="submit">
+  //                 Submit
+  //               </Button>
+  //             </Form>
+  //           </Card.Body>
+  //         </Card>
+  //       </Col>
+  //     </Row>
+  //   </Container>
+  // )
+  // First Code ==========================================
+
   return user.id !== null ? (
-    <Navigate to="/products" />
+    <>
+      {user.isAdmin ? (
+        <Navigate to="/dashboard" />
+      ) : (
+        <Navigate to="/products" />
+      )}
+    </>
   ) : (
     <Container>
-      <h1 className="display-1 text-center ">Login Page</h1>
-      <Col>
-        <Row className="justify-content-center align-items-center ">
+      <h1 className="display-1 text-center mt-5 mb-5">Login Page</h1>
+      <Row>
+        <Col className="justify-content-center align-items-center">
           {/* <h1 className="">Login Page</h1> */}
           <Card>
             {/* <Card.Header>Login Page</Card.Header> */}
@@ -129,10 +194,56 @@ const LoginPage = () => {
               </Form>
             </Card.Body>
           </Card>
-        </Row>
-      </Col>
+        </Col>
+      </Row>
     </Container>
   );
+
+  // return (
+  //   <Container>
+  //     <h1 className="display-1 text-center mt-5 mb-5">Login Page</h1>
+  //     <Row>
+  //       <Col className="justify-content-center align-items-center">
+  //         {/* <h1 className="">Login Page</h1> */}
+  //         <Card>
+  //           {/* <Card.Header>Login Page</Card.Header> */}
+  //           <Card.Body>
+  //             <Form onSubmit={(e) => login(e)}>
+  //               <Form.Group className="mb-3" controlId="formBasicEmail">
+  //                 <Form.Label>Email address</Form.Label>
+  //                 <Form.Control
+  //                   type="email"
+  //                   placeholder="Enter email"
+  //                   value={email}
+  //                   onChange={(e) => setEmail(e.target.value)}
+  //                   required
+  //                 />
+  //                 <Form.Text className="text-muted">
+  //                   We'll never share your email with anyone else.
+  //                 </Form.Text>
+  //               </Form.Group>
+
+  //               <Form.Group className="mb-3" controlId="formBasicPassword">
+  //                 <Form.Label>Password</Form.Label>
+  //                 <Form.Control
+  //                   type="password"
+  //                   placeholder="Password"
+  //                   value={password}
+  //                   onChange={(e) => setPassword(e.target.value)}
+  //                   required
+  //                 />
+  //               </Form.Group>
+
+  //               <Button variant="primary" type="submit">
+  //                 Submit
+  //               </Button>
+  //             </Form>
+  //           </Card.Body>
+  //         </Card>
+  //       </Col>
+  //     </Row>
+  //   </Container>
+  // );
 };
 
 export default LoginPage;

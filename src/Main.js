@@ -52,6 +52,7 @@ const Main = () => {
       {/* <Banner /> */}
       {/* <LoginPage /> */}
       {/* <RegisterPage /> */}
+
       <UserProvider value={{ user, setUser, unsetUser }}>
         <Router>
           <AppNavBar />
@@ -66,7 +67,6 @@ const Main = () => {
             <Route path="/addProduct" element={<AddProduct />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/profilepage" element={<ProfilePage />} />
-
             {/* End of Admin Route */}
           </Routes>
         </Router>
