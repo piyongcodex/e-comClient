@@ -56,17 +56,15 @@ const DashboardPage = () => {
               <th colSpan={2}>Actions</th>
             </tr>
           </thead>
-          <tbody className="text-center ">
+          <tbody className="text-center">
             {products.map((product) => (
               <tr key={product._id}>
-                <td className="p-5">{product._id}</td>
-                <td className="p-5">{product.name}</td>
-                <td className="p-5">{product.description}</td>
-                <td className="p-5">{product.price}</td>
-                <td className="p-5">
-                  {product.isActive ? "Available" : "Unavailable"}
-                </td>
-                <td className="p-5">
+                <td>{product._id}</td>
+                <td>{product.name}</td>
+                <td>{product.description}</td>
+                <td>{product.price}</td>
+                <td>{product.isActive ? "Available" : "Unavailable"}</td>
+                <td>
                   <Button
                     variant="primary"
                     onClick={() => handleEdit(product.id)}
