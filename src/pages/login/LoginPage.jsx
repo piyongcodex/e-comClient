@@ -30,12 +30,12 @@ const LoginPage = () => {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(email);
-        console.log(password);
+        // console.log(email);
+        // console.log(password);
         if (data.access) {
           localStorage.setItem("token", data.access);
           retrieveUserDetails(data.access);
-          console.table(data);
+          // console.table(data);
           Swal.fire({
             title: "Login Successful",
             icon: "success",
@@ -44,7 +44,7 @@ const LoginPage = () => {
             showConfirmButton: true,
           }).then(() => {
             setTimeout(() => {
-              window.location.reload();
+              // window.location.reload();
             }); // Delay of 2 second
           }, 1000);
         } else {
@@ -75,7 +75,7 @@ const LoginPage = () => {
           id: data.user._id,
           isAdmin: data.user.isAdmin,
         });
-        // console.table(user.isAdmin);
+        // window.location.reload();
       });
   };
   // return;

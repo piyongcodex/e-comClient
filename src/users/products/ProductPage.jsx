@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import UserContext from "../../UserContext";
-import { DashboardPage } from "../../admin";
+import React, { useState, useEffect } from "react";
+import { Container, Row, Col, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const ProductPage = () => {
-  const { user } = useContext(UserContext);
+  // const { user } = useContext(UserContext);
   const [showProduct, setProduct] = useState([]);
 
   useEffect(() => {
@@ -92,11 +91,14 @@ const ProductPage = () => {
                 <Card.Text>{product.description}</Card.Text>
                 <div className="mt-auto">
                   <Card.Text className="mt-auto">
-                    Price: ${product.price}
+                    Price: Php {parseFloat(product.price).toFixed(2)}
                   </Card.Text>
-                  <Button variant="primary" className="w-100">
-                    Buy Now
-                  </Button>
+                  <Link
+                    className="btn btn-primary"
+                    to={`/productdetails/${product._id}`}
+                  >
+                    Details
+                  </Link>
                 </div>
               </Card.Body>
             </Card>

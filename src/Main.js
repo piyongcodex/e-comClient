@@ -1,11 +1,11 @@
 import React from "react";
 // import AppNavBar from "./components/navbar/AppNavBar";
 // import Banner from "./components/banner/Banner";
-import { useState, useEffect, useContext } from "react";
-import { AppNavBar, Banner } from "./components";
+import { useState, useEffect } from "react";
+import { AppNavBar } from "./components";
 import { LoginPage, RegisterPage, HomePage, Logout } from "./pages";
 import { AddProduct, DashboardPage } from "./admin";
-import { ProductPage, ProfilePage } from "./users";
+import { ProductPage, ProfilePage, ProductDetails } from "./users";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserProvider } from "./UserContext";
 
@@ -67,6 +67,11 @@ const Main = () => {
             <Route path="/addProduct" element={<AddProduct />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/profilepage" element={<ProfilePage />} />
+            <Route
+              path="/productdetails/:pid"
+              element={<ProductDetails />}
+              exact="true"
+            />
             {/* End of Admin Route */}
           </Routes>
         </Router>

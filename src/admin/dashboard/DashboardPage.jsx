@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Table, Container, Button } from "react-bootstrap";
+import { Table, Container } from "react-bootstrap";
 import UserContext from "../../UserContext";
+import { Navigate } from "react-router-dom";
+import UpdateProduct from "../updateProduct/UpdateProduct";
+import ArchiveProduct from "../archiveproduct/ArchiveProduct";
 
 const DashboardPage = () => {
   const [products, setProducts] = useState([]);
@@ -18,77 +21,51 @@ const DashboardPage = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        // console.table(data);
-        // return;
         setProducts(data.products);
       })
       .catch((error) => console.error("Error fetching data:", error));
     // }
   });
 
-  const handleEdit = (id) => {
-    console.log("Edit product with ID:", id);
-  };
-
-  const handleToggleAvailability = (id, isActive) => {
-    console.log(
-      "Toggle availability for product with ID:",
-      id,
-      "New status:",
-      !isActive
-    );
-  };
-
-  {
-    user !== null;
-    return (
-      <Container>
-        <h1 className="display-1 text-center mt-5">DashboardPage</h1>
-
-        <Table responsive striped bordered className="mt-5">
-          <thead>
-            <tr className="text-center">
-              <th>ID</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Price</th>
-              <th>Availability</th>
-              <th colSpan={2}>Actions</th>
+  return user.id === null ? (
+    <Navigate to="/login" />
+  ) : (
+    <Container>
+      <h1 className="display-1 text-center mt-5">DashboardPage</h1>
+      <Table responsive striped bordered className="mt-5">
+        <thead>
+          <tr className="text-center">
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Availability</th>
+            <th colSpan={2}>Actions</th>
+          </tr>
+        </thead>
+        <tbody className="text-center">
+          {products.map((product) => (
+            <tr key={product._id}>
+              <td>{product._id}</td>
+              <td>{product.name}</td>
+              <td>{product.description}</td>
+              <td>{parseFloat(product.price).toFixed(2)}</td>
+              <td>{product.isActive ? "Available" : "Unavailable"}</td>
+              <td>
+                <UpdateProduct product={product._id} />
+              </td>
+              <td>
+                <ArchiveProduct
+                  product={product._id}
+                  isActive={product.isActive}
+                />
+              </td>
             </tr>
-          </thead>
-          <tbody className="text-center">
-            {products.map((product) => (
-              <tr key={product._id}>
-                <td>{product._id}</td>
-                <td>{product.name}</td>
-                <td>{product.description}</td>
-                <td>{product.price}</td>
-                <td>{product.isActive ? "Available" : "Unavailable"}</td>
-                <td>
-                  <Button
-                    variant="primary"
-                    onClick={() => handleEdit(product.id)}
-                  >
-                    Edit
-                  </Button>{" "}
-                </td>
-                <td>
-                  <Button
-                    variant={product.isActive ? "danger" : "success"}
-                    onClick={() =>
-                      handleToggleAvailability(product.id, product.isActive)
-                    }
-                  >
-                    {product.isActive ? "Archive" : "Activate"}
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </Container>
-    );
-  }
+          ))}
+        </tbody>
+      </Table>
+    </Container>
+  );
 };
 
 export default DashboardPage;
