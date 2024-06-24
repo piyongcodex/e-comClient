@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../../UserContext";
 import { useParams } from "react-router-dom";
+import ProductName from "../productname/ProductName";
+import ProductPrice from "../productprice/ProductPrice";
 
 import {
   Card,
@@ -18,15 +20,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 const CartView = () => {
-  const { user } = useContext(UserContext);
-  const { pid } = useParams();
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState(0);
-  const [quantity, setQuantity] = useState(0);
-  const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
   const [cartItems, setCartItems] = useState([]);
-  const [prodName, setProdName] = useState([]);
+
   useEffect(() => {
     fetch(
       `http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/cart/get-cart`,
@@ -40,7 +36,6 @@ const CartView = () => {
       .then((data) => {
         // const { cart } = data;
         // console.log(data.cart[0].cartItems);
-        setName(data);
         setCartItems(data.cart[0].cartItems);
         setTotal(data.cart[0].totalPrice);
         console.log(data);
@@ -53,40 +48,6 @@ const CartView = () => {
       });
   }, []);
 
-  function getProductName(productId) {
-    fetch(
-      `http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/products/${productId}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setProdName(data.product.name);
-        console.log(data.product.name);
-        //   setName();
-      });
-
-    return prodName;
-  }
-  // let productName = getProductName("664f04bc5900fa62ffe175fe");
-  //   console.log("Product Name  ID : ", productName);
-  //   For Checkout Update quantity and totals
-  //   function updateCart(e) {}
-
-  //   useEffect(() => {
-  //     // Fetch product name based on productId
-  //     if (cartItems.length > 0) {
-  //       cartItems.forEach((item) => {
-  //         fetch(
-  //           `http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/products/${item.productId}`
-  //         )
-  //           .then((res) => res.json())
-  //           .then((data) => {
-  //             setProdName(data.product.name);
-  //           });
-  //       });
-  //     }
-  //   }, [cartItems]);
-
-  // Function to handle updating quantity and subtotal
   const handleQuantityChange = (e, index) => {
     const updatedItems = [...cartItems];
     updatedItems[index].quantity = e.target.value;
@@ -119,43 +80,11 @@ const CartView = () => {
                   <th>Action</th>
                 </tr>
               </thead>
-              {/* <tbody className="text-center ">
-                <tr>
-                  <td>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Provident, veritatis!
-                  </td>
-                  <td>2000</td>
-                  <td>
-                    <Form>
-                      <FormGroup>
-                        <InputGroup
-                          className="mb-3 mx-auto"
-                          style={{ maxWidth: "150px" }}
-                        >
-                          <Button variant="outline-secondary btn-dark">
-                            -
-                          </Button>
-                          <FormControl type="number" min="1" />
-                          <Button variant="outline-secondary btn-dark">
-                            +
-                          </Button>
-                        </InputGroup>
-                      </FormGroup>
-                    </Form>
-                  </td>
-                  <td>2000</td>
-                  <td>
-                    <Button variant="danger">Remove</Button>
-                  </td>
-                </tr>
-              </tbody> */}
               <tbody>
                 {cartItems.map((item, index) => (
                   <tr key={index}>
-                    <td>{prodName}</td>
-                    <td>{item.price}</td>
-
+                    <ProductName productId={item.productId} />
+                    <ProductPrice productId={item.productId} />
                     <td>
                       <Form>
                         <FormGroup>

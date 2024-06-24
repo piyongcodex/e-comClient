@@ -75,11 +75,15 @@ const ProductDetails = () => {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.table(data.cart.cartItems[0].quantity);
+        // console.log(data);
+        const itemIndex = data.cart.cartItems.findIndex(
+          (item) => item.productId === pid
+        );
+
         Swal.fire({
           title: "Add to cart is successful",
-          // text: `${data.cart.cartItems[1]}`,
-          text: "Total iTems in Cart : " + data.cart.cartItems[0].quantity,
+          text:
+            "Total items in Cart : " + data.cart.cartItems[itemIndex].quantity,
           icon: "success",
           showConfirmButton: true,
         });
