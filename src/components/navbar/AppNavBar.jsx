@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import UserContext from "../../UserContext";
 import { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 const AppNavBar = () => {
   const { user } = useContext(UserContext);
@@ -123,6 +123,9 @@ const AppNavBar = () => {
                   </Nav.Link>
                   <Nav.Link as={Link} to="/products">
                     Products
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/cart">
+                    <FontAwesomeIcon icon={faShoppingCart} size="lg" />{" "}
                   </Nav.Link>
                 </>
               )}

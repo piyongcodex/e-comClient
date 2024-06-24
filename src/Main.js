@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { AppNavBar } from "./components";
 import { LoginPage, RegisterPage, HomePage, Logout } from "./pages";
 import { AddProduct, DashboardPage } from "./admin";
-import { ProductPage, ProfilePage, ProductDetails } from "./users";
+import { ProductPage, ProfilePage, ProductDetails, CartView } from "./users";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserProvider } from "./UserContext";
 
@@ -67,6 +67,8 @@ const Main = () => {
             <Route path="/addProduct" element={<AddProduct />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/profilepage" element={<ProfilePage />} />
+            <Route path="/cart" element={<CartView />} />
+
             <Route
               path="/productdetails/:pid"
               element={<ProductDetails />}

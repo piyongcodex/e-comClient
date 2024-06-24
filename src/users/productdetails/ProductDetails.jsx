@@ -75,8 +75,11 @@ const ProductDetails = () => {
     )
       .then((res) => res.json())
       .then((data) => {
+        console.table(data.cart.cartItems[0].quantity);
         Swal.fire({
           title: "Add to cart is successful",
+          // text: `${data.cart.cartItems[1]}`,
+          text: "Total iTems in Cart : " + data.cart.cartItems[0].quantity,
           icon: "success",
           showConfirmButton: true,
         });
@@ -85,11 +88,9 @@ const ProductDetails = () => {
 
   return (
     <Container>
-      <Row
-        className="justify-content-md-center"
-        style={{ height: "100vh", alignItems: "center" }}
-      >
-        <Col xs="auto">
+      <Row className="justify-content-md-center">
+        <h1 className="display-1 text-center mt-5">Add To Cart</h1>
+        <Col xs="auto" className="mt-5">
           <Form onSubmit={(e) => addtocart(e)}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>
@@ -103,9 +104,12 @@ const ProductDetails = () => {
             <FormGroup>
               <InputGroup
                 className="mb-3 mx-auto"
-                style={{ maxWidth: "200px" }}
+                style={{ maxWidth: "150px" }}
               >
-                <Button variant="outline-secondary" onClick={handleDecrement}>
+                <Button
+                  variant="outline-secondary btn-dark"
+                  onClick={handleDecrement}
+                >
                   -
                 </Button>
                 <FormControl
@@ -114,13 +118,16 @@ const ProductDetails = () => {
                   onChange={handleChange}
                   min="1"
                 />
-                <Button variant="outline-secondary" onClick={handleIncrement}>
+                <Button
+                  variant="outline-secondary btn-dark"
+                  onClick={handleIncrement}
+                >
                   +
                 </Button>
               </InputGroup>
             </FormGroup>
             <Button variant="primary" type="submit">
-              Submit
+              Add to Cart
             </Button>
           </Form>
         </Col>
