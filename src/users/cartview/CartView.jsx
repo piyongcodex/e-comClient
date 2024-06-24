@@ -19,6 +19,45 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
+const CartItem = ({ item, handleIncrement, handleDecrement, handleChange }) => {
+  return (
+    <tr>
+      <ProductName productId={item.productId} />
+      <ProductPrice productId={item.productId} />
+      <td>
+        <Form>
+          <FormGroup>
+            <InputGroup className="mb-3 mx-auto" style={{ maxWidth: "150px" }}>
+              <Button
+                variant="outline-secondary btn-dark"
+                onClick={handleDecrement}
+              >
+                -
+              </Button>
+              <FormControl
+                type="number"
+                value={item.quantity}
+                onChange={handleChange}
+                min="1"
+              />
+              <Button
+                variant="outline-secondary btn-dark"
+                onClick={handleIncrement}
+              >
+                +
+              </Button>
+            </InputGroup>
+          </FormGroup>
+        </Form>
+      </td>
+      <td>{item.subtotal}</td>
+      <td>
+        <Button variant="danger">Remove</Button>
+      </td>
+    </tr>
+  );
+};
+
 const CartView = () => {
   const [total, setTotal] = useState(0);
   const [cartItems, setCartItems] = useState([]);
@@ -34,33 +73,32 @@ const CartView = () => {
     )
       .then((res) => res.json())
       .then((data) => {
-        // const { cart } = data;
-        // console.log(data.cart[0].cartItems);
         setCartItems(data.cart[0].cartItems);
         setTotal(data.cart[0].totalPrice);
-        console.log(data);
-
-        // setName(data.name);
-        // setQuantity(data.quantity); // Update quantity state
-        // setSubtotal(data.subtotal); // Update subtotal state
-        // setTotal(data.totalPrice); // Update total state
-        // setProduct(data); // Store the entire product data if needed for rendering
       });
   }, []);
 
-  const handleQuantityChange = (e, index) => {
-    const updatedItems = [...cartItems];
-    updatedItems[index].quantity = e.target.value;
-    updatedItems[index].subtotal =
-      updatedItems[index].quantity * updatedItems[index].price;
-    setCartItems(updatedItems);
+  const handleIncrement = (index) => {
+    const newCartItems = [...cartItems];
+    newCartItems[index].quantity += 1;
+    setCartItems(newCartItems);
   };
 
-  // Function to handle removing an item from cart
-  const handleRemoveItem = (index) => {
-    const updatedItems = [...cartItems];
-    updatedItems.splice(index, 1);
-    setCartItems(updatedItems);
+  const handleDecrement = (index) => {
+    const newCartItems = [...cartItems];
+    if (newCartItems[index].quantity > 1) {
+      newCartItems[index].quantity -= 1;
+      setCartItems(newCartItems);
+    }
+  };
+
+  const handleChange = (index, e) => {
+    const value = e.target.value;
+    if (value === "" || Number(value) > 0) {
+      const newCartItems = [...cartItems];
+      newCartItems[index].quantity = Number(value);
+      setCartItems(newCartItems);
+    }
   };
 
   return (
@@ -82,42 +120,13 @@ const CartView = () => {
               </thead>
               <tbody>
                 {cartItems.map((item, index) => (
-                  <tr key={index}>
-                    <ProductName productId={item.productId} />
-                    <ProductPrice productId={item.productId} />
-                    <td>
-                      <Form>
-                        <FormGroup>
-                          <InputGroup
-                            className="mb-3 mx-auto"
-                            style={{ maxWidth: "150px" }}
-                          >
-                            <Button variant="outline-secondary btn-dark">
-                              -
-                            </Button>
-                            <FormControl
-                              type="number"
-                              min="1"
-                              value={item.quantity}
-                              onChange={(e) => handleQuantityChange(e, index)}
-                            />
-                            <Button variant="outline-secondary btn-dark">
-                              +
-                            </Button>
-                          </InputGroup>
-                        </FormGroup>
-                      </Form>
-                    </td>
-                    <td>{item.subtotal}</td>
-                    <td>
-                      <Button
-                        variant="danger"
-                        onClick={() => handleRemoveItem(index)}
-                      >
-                        Remove
-                      </Button>
-                    </td>
-                  </tr>
+                  <CartItem
+                    key={index}
+                    item={item}
+                    handleIncrement={() => handleIncrement(index)}
+                    handleDecrement={() => handleDecrement(index)}
+                    handleChange={(e) => handleChange(index, e)}
+                  />
                 ))}
               </tbody>
             </Table>

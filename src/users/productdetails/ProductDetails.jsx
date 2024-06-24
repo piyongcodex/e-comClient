@@ -75,7 +75,6 @@ const ProductDetails = () => {
     )
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
         const itemIndex = data.cart.cartItems.findIndex(
           (item) => item.productId === pid
         );
