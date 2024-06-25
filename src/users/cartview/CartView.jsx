@@ -120,17 +120,37 @@ const CartView = () => {
       newQuantity * (productDetails[index] ? productDetails[index].price : 0);
     setCartItems(updatedItems);
     setTotal(updatedItems.reduce((acc, item) => acc + item.subtotal, 0)); // Update total
+
+    //update quantity
+    updateQuantity(
+      newQuantity,
+      updatedItems[index].productId,
+      productDetails[index].price
+    );
   };
 
-  // const handleRemoveItem = (index) => {
-  //   const updatedItems = [...cartItems];
-  //   updatedItems.splice(index, 1);
-  //   setCartItems(updatedItems);
-  //   setTotal(updatedItems.reduce((acc, item) => acc + item.subtotal, 0)); // Update total
-
-  //   //remove to database
-  //   console.log(cartItems[index].productId);
-  // };
+  //update  quantity in database
+  const updateQuantity = (quantity, productId, price) => {
+    console.log(quantity);
+    console.log(productId);
+    console.log(price);
+    //update price
+    fetch(
+      `http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/cart/update-cart-quantity`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          productId: productId,
+          quantity: quantity,
+          subtotal: quantity * price,
+        }),
+      }
+    );
+  };
 
   return (
     <>
