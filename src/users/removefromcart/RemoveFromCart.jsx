@@ -2,7 +2,7 @@ import React from "react";
 import Swal from "sweetalert2";
 import { Button } from "react-bootstrap";
 
-const RemoveFromCart = ({ product }) => {
+const RemoveFromCart = ({ product, reload }) => {
   const remove = (productId) => {
     console.log(productId);
     fetch(
@@ -22,6 +22,8 @@ const RemoveFromCart = ({ product }) => {
             title: "Item removed",
             icon: "success",
           });
+          //reload
+          reload();
         } else {
           Swal.fire({
             title: "Something Went Wrong",

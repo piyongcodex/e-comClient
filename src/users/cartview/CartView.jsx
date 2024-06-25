@@ -30,6 +30,7 @@ const CartView = () => {
   const [cartItems, setCartItems] = useState([]);
   const [productDetails, setProductDetails] = useState([]);
 
+  //first render
   useEffect(() => {
     fetch(
       `http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/cart/get-cart`,
@@ -48,7 +49,27 @@ const CartView = () => {
         setTotal(data.cart[0].totalPrice);
         console.log(data);
       });
-  }, [cartItems]);
+  }, []);
+
+  const reload = () => {
+    fetch(
+      `http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/cart/get-cart`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.table(data);
+        console.log(data.cart[0].cartItems);
+
+        setCartItems(data.cart[0].cartItems);
+        setTotal(data.cart[0].totalPrice);
+        console.log(data);
+      });
+  };
 
   const fetchProductDetails = (productId) => {
     return fetch(
@@ -164,7 +185,10 @@ const CartView = () => {
                           : 0)}
                     </td>
                     <td>
-                      <RemoveFromCart product={item.productId} />
+                      <RemoveFromCart
+                        product={item.productId}
+                        reload={reload}
+                      />
                     </td>
                   </tr>
                 ))}
@@ -174,7 +198,7 @@ const CartView = () => {
             <Row>
               <Row>
                 <Col>
-                  <ClearCart />
+                  <Button variant="warning">Clear Cart</Button>
                 </Col>
                 <Col className=" d-flex justify-content-end align-items-center">
                   <Button variant="dark">
