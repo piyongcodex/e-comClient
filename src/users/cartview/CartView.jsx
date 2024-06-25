@@ -47,7 +47,7 @@ const CartView = () => {
 
         setCartItems(data.cart[0].cartItems);
         setTotal(data.cart[0].totalPrice);
-        console.log(data);
+        // console.log(data);
       });
   }, []);
 
