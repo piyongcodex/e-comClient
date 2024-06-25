@@ -1,7 +1,7 @@
 import React from "react";
 import Swal from "sweetalert2";
 import { Button } from "react-bootstrap";
-const ClearCart = () => {
+const ClearCart = ({ reload }) => {
   const clear = () => {
     fetch(
       `http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/cart/clear-cart`,
@@ -23,6 +23,7 @@ const ClearCart = () => {
             title: "Cart cleared",
             icon: "success",
           });
+          reload();
         } else {
           Swal.fire({
             title: "Something Went Wrong",
@@ -35,7 +36,7 @@ const ClearCart = () => {
 
   return (
     <Button variant="warning" size="sm" onClick={() => clear()}>
-      Clear cart
+      CLEAR CART
     </Button>
   );
 };

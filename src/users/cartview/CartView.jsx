@@ -15,6 +15,7 @@ import {
   FormGroup,
   Row,
   Col,
+  Spinner,
 } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -29,6 +30,7 @@ const CartView = () => {
   const [total, setTotal] = useState(0);
   const [cartItems, setCartItems] = useState([]);
   const [productDetails, setProductDetails] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   //first render
   useEffect(() => {
@@ -47,6 +49,7 @@ const CartView = () => {
 
         setCartItems(data.cart[0].cartItems);
         setTotal(data.cart[0].totalPrice);
+        setLoading(false);
         // console.log(data);
       });
   }, []);
@@ -125,96 +128,118 @@ const CartView = () => {
 
   return (
     <>
-      <h1 className="display-1 mt-5 text-center">Cart</h1>
-      <h2 className="display-5 mt-5 text-center">Your Shopping Cart</h2>
-      <Container className="mt-5">
-        <Card>
-          <Card.Body>
-            <Table striped bordered hover>
-              <thead className="text-center">
-                <tr>
-                  <th>Name</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th>Subtotal</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {cartItems.map((item, index) => (
-                  <tr key={index}>
-                    <td>
-                      {productDetails[index] ? productDetails[index].name : ""}
-                    </td>
-                    <td>
-                      {productDetails[index] ? productDetails[index].price : 0}
-                    </td>
-                    <td>
-                      <Form>
-                        <FormGroup>
-                          <InputGroup
-                            className="mb-3 mx-auto"
-                            style={{ maxWidth: "150px" }}
-                          >
-                            <Button
-                              variant="outline-secondary btn-dark"
-                              onClick={() => handleQuantityChange(index, -1)}
-                            >
-                              -
-                            </Button>
-                            <FormControl
-                              type="number"
-                              min="1"
-                              value={item.quantity}
-                              readOnly
-                            />
-                            <Button
-                              variant="outline-secondary btn-dark"
-                              onClick={() => handleQuantityChange(index, 1)}
-                            >
-                              +
-                            </Button>
-                          </InputGroup>
-                        </FormGroup>
-                      </Form>
-                    </td>
-                    <td>
-                      {item.quantity *
-                        (productDetails[index]
-                          ? productDetails[index].price
-                          : 0)}
-                    </td>
-                    <td>
-                      <RemoveFromCart
-                        product={item.productId}
-                        reload={reload}
-                      />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
+      {loading ? (
+        <div className="d-flex justify-content-center align-items-center vh-100">
+          <Spinner
+            animation="border"
+            role="status"
+            style={{ width: "5rem", height: "5rem" }}
+            variant="danger"
+          >
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
+      ) : (
+        <>
+          <h1 className="display-1 mt-5 text-center">Cart</h1>
+          <h2 className="display-5 mt-5 text-center">Your Shopping Cart</h2>
+          <Container className="mt-5">
+            <Card>
+              <Card.Body>
+                <Table striped bordered hover>
+                  <thead className="text-center">
+                    <tr>
+                      <th>Name</th>
+                      <th>Price</th>
+                      <th>Quantity</th>
+                      <th>Subtotal</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {cartItems.map((item, index) => (
+                      <tr key={index}>
+                        <td>
+                          {productDetails[index]
+                            ? productDetails[index].name
+                            : ""}
+                        </td>
+                        <td>
+                          {productDetails[index]
+                            ? productDetails[index].price
+                            : 0}
+                        </td>
+                        <td>
+                          <Form>
+                            <FormGroup>
+                              <InputGroup
+                                className="mb-3 mx-auto"
+                                style={{ maxWidth: "150px" }}
+                              >
+                                <Button
+                                  variant="outline-secondary btn-dark"
+                                  onClick={() =>
+                                    handleQuantityChange(index, -1)
+                                  }
+                                >
+                                  -
+                                </Button>
+                                <FormControl
+                                  type="number"
+                                  min="1"
+                                  value={item.quantity}
+                                  readOnly
+                                />
+                                <Button
+                                  variant="outline-secondary btn-dark"
+                                  onClick={() => handleQuantityChange(index, 1)}
+                                >
+                                  +
+                                </Button>
+                              </InputGroup>
+                            </FormGroup>
+                          </Form>
+                        </td>
+                        <td>
+                          {item.quantity *
+                            (productDetails[index]
+                              ? productDetails[index].price
+                              : 0)}
+                        </td>
+                        <td>
+                          <RemoveFromCart
+                            product={item.productId}
+                            reload={reload}
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
 
-            <Row>
-              <Row>
-                <Col>
-                  <Button variant="warning">Clear Cart</Button>
-                </Col>
-                <Col className=" d-flex justify-content-end align-items-center">
-                  <Button variant="dark">
-                    CheckOut <FontAwesomeIcon icon={faArrowRight} />
-                  </Button>
-                </Col>
-              </Row>
+                <Row>
+                  <Row>
+                    <Col>
+                      {/* <Button variant="warning">Clear Cart</Button> */}
+                      <ClearCart reload={reload} />
+                    </Col>
+                    <Col className=" d-flex justify-content-end align-items-center">
+                      <Button variant="dark">
+                        CheckOut <FontAwesomeIcon icon={faArrowRight} />
+                      </Button>
+                    </Col>
+                  </Row>
 
-              <Col>
-                <h1 className="text-center">Total: ${total.toFixed(2)}</h1>
-              </Col>
-            </Row>
-            <Row></Row>
-          </Card.Body>
-        </Card>
-      </Container>
+                  <Col>
+                    <h1 className="text-center">Total: ${total.toFixed(2)}</h1>
+                  </Col>
+                </Row>
+                <Row></Row>
+              </Card.Body>
+            </Card>
+          </Container>
+        </>
+      )}
     </>
   );
 };
