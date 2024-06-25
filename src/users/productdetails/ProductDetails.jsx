@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   Button,
   FormControl,
@@ -17,6 +17,7 @@ import UserContext from "../../UserContext";
 
 const ProductDetails = () => {
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const { pid } = useParams();
   //set values
@@ -85,6 +86,8 @@ const ProductDetails = () => {
             "Total items in Cart : " + data.cart.cartItems[itemIndex].quantity,
           icon: "success",
           showConfirmButton: true,
+        }).then(() => {
+          navigate("/cart");
         });
       });
   };
