@@ -1,8 +1,24 @@
-import React from "react";
-import { Card, Button, Container, Row, Col, ListGroup } from "react-bootstrap";
+import React, { useState } from "react";
+import {
+  Card,
+  Button,
+  Container,
+  Row,
+  Col,
+  Modal,
+  Form,
+} from "react-bootstrap";
+
 const ProfilePage = () => {
+  const [showModal, setShowModal] = useState(false); // State to manage modal visibility
+
   const profileImage =
     "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp";
+
+  // Function to toggle modal visibility
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
 
   return (
     <>
@@ -29,20 +45,8 @@ const ProfilePage = () => {
                 </Row>
               </Card.Body>
             </Card>
-
-            {/* <div class="card-body text-center">
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
-              <h5 class="my-3">John Smith</h5>
-              <p class="text-muted mb-1">Full Stack Developer</p>
-              <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
-              <div class="d-flex justify-content-center mb-2">
-                <button type="button" data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-primary" data-mdb-button-initialized="true">Follow</button>
-                <button type="button" data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-outline-primary ms-1" data-mdb-button-initialized="true">Message</button>
-              </div>
-            </div> */}
           </Col>
           <Col lg={8}>
-            {" "}
             <Card style={{ width: "80%" }} className="shadow">
               <Card.Body>
                 <Col lg={9}>
@@ -54,13 +58,50 @@ const ProfilePage = () => {
                   <Card.Text>12345</Card.Text>
                   <Card.Title>Status</Card.Title>
                   <Card.Text>User</Card.Text>
-                  <Button>Change Password</Button>
+                  <Button onClick={toggleModal}>Change Password</Button>
                 </Col>
               </Card.Body>
             </Card>
           </Col>
         </Row>
       </Container>
+
+      {/* Modal for changing password */}
+      <Modal show={showModal} onHide={toggleModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Change Password</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group controlId="currentPassword">
+              <Form.Label>Current Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Enter current password"
+              />
+            </Form.Group>
+            <Form.Group controlId="newPassword">
+              <Form.Label>New Password</Form.Label>
+              <Form.Control type="password" placeholder="Enter new password" />
+            </Form.Group>
+            <Form.Group controlId="confirmNewPassword">
+              <Form.Label>Confirm New Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Confirm new password"
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={toggleModal}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={toggleModal}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
