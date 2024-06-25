@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 // import { useParams } from "react-router-dom";
 import RemoveFromCart from "../removefromcart/RemoveFromCart";
 import ClearCart from "../clearcart/ClearCart";
+import Checkout from "../checkout/Checkout";
 
 import {
   Card,
@@ -44,13 +45,14 @@ const CartView = () => {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.table(data);
-        console.log(data.cart[0].cartItems);
-
-        setCartItems(data.cart[0].cartItems);
-        setTotal(data.cart[0].totalPrice);
-        setLoading(false);
-        // console.log(data);
+        console.log(data);
+        if (data.error == "Cart not found") {
+          setLoading(false);
+        } else {
+          setCartItems(data.cart.cartItems);
+          setTotal(data.cart.totalPrice);
+          setLoading(false);
+        }
       });
   }, []);
 
@@ -65,12 +67,16 @@ const CartView = () => {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.table(data);
-        console.log(data.cart[0].cartItems);
-
-        setCartItems(data.cart[0].cartItems);
-        setTotal(data.cart[0].totalPrice);
         console.log(data);
+        if (data.error == "Cart not found") {
+          setCartItems([]);
+          setTotal(0);
+          setLoading(false);
+        } else {
+          setCartItems(data.cart.cartItems);
+          setTotal(data.cart.totalPrice);
+          setLoading(false);
+        }
       });
   };
 
@@ -116,15 +122,15 @@ const CartView = () => {
     setTotal(updatedItems.reduce((acc, item) => acc + item.subtotal, 0)); // Update total
   };
 
-  const handleRemoveItem = (index) => {
-    const updatedItems = [...cartItems];
-    updatedItems.splice(index, 1);
-    setCartItems(updatedItems);
-    setTotal(updatedItems.reduce((acc, item) => acc + item.subtotal, 0)); // Update total
+  // const handleRemoveItem = (index) => {
+  //   const updatedItems = [...cartItems];
+  //   updatedItems.splice(index, 1);
+  //   setCartItems(updatedItems);
+  //   setTotal(updatedItems.reduce((acc, item) => acc + item.subtotal, 0)); // Update total
 
-    //remove to database
-    console.log(cartItems[index].productId);
-  };
+  //   //remove to database
+  //   console.log(cartItems[index].productId);
+  // };
 
   return (
     <>
@@ -224,9 +230,7 @@ const CartView = () => {
                       <ClearCart reload={reload} />
                     </Col>
                     <Col className=" d-flex justify-content-end align-items-center">
-                      <Button variant="dark">
-                        CheckOut <FontAwesomeIcon icon={faArrowRight} />
-                      </Button>
+                      <Checkout reload={reload} />
                     </Col>
                   </Row>
 
