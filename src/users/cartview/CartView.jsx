@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 // import UserContext from "../../UserContext";
 // import { useParams } from "react-router-dom";
+import RemoveFromCart from "../removefromcart/RemoveFromCart";
+import ClearCart from "../clearcart/ClearCart";
 
 import {
   Card,
@@ -46,7 +48,7 @@ const CartView = () => {
         setTotal(data.cart[0].totalPrice);
         console.log(data);
       });
-  }, []);
+  }, [cartItems]);
 
   const fetchProductDetails = (productId) => {
     return fetch(
@@ -95,6 +97,9 @@ const CartView = () => {
     updatedItems.splice(index, 1);
     setCartItems(updatedItems);
     setTotal(updatedItems.reduce((acc, item) => acc + item.subtotal, 0)); // Update total
+
+    //remove to database
+    console.log(cartItems[index].productId);
   };
 
   return (
@@ -159,12 +164,7 @@ const CartView = () => {
                           : 0)}
                     </td>
                     <td>
-                      <Button
-                        variant="danger"
-                        onClick={() => handleRemoveItem(index)}
-                      >
-                        Remove
-                      </Button>
+                      <RemoveFromCart product={item.productId} />
                     </td>
                   </tr>
                 ))}
@@ -172,18 +172,22 @@ const CartView = () => {
             </Table>
 
             <Row>
+              <Row>
+                <Col>
+                  <ClearCart />
+                </Col>
+                <Col className=" d-flex justify-content-end align-items-center">
+                  <Button variant="dark">
+                    CheckOut <FontAwesomeIcon icon={faArrowRight} />
+                  </Button>
+                </Col>
+              </Row>
+
               <Col>
-                <p>Total: ${total.toFixed(2)}</p>
-              </Col>
-              <Col>
-                <Button variant="warning">Clear Cart</Button>
-              </Col>
-              <Col className="text-right">
-                <Button variant="dark">
-                  Update <FontAwesomeIcon icon={faArrowRight} />
-                </Button>
+                <h1 className="text-center">Total: ${total.toFixed(2)}</h1>
               </Col>
             </Row>
+            <Row></Row>
           </Card.Body>
         </Card>
       </Container>
