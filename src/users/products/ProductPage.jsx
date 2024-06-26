@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import UserContext from "../../UserContext";
 
 const ProductPage = () => {
-  // const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [showProduct, setProduct] = useState([]);
 
   useEffect(() => {
@@ -20,63 +21,10 @@ const ProductPage = () => {
   const placeholderImgUrl =
     "https://via.placeholder.com/286x180.png?text=Placeholder";
 
-  // return user.isAdmin ? (
-  //   <DashboardPage />
-  // ) : (
-  //   <Container className="mt-5">
-  //     {/* old code */}
-  //     {/* <Row>
-  //     {showProduct.map((product) => (
-  //       <Col key={product._id} className="p-5 text-center">
-  //         <div>
-  //           <h3>{product.name}</h3>
-  //           <p>{product.description}</p>
-  //           <p>Price: ${product.price}</p>
-  //         </div>
-  //       </Col>
-  //     ))}
-  //   </Row> */}
-  //     <Row xs={1} md={2} lg={3} className="g-4">
-  //       {showProduct.map((product) => (
-  //         <Col key={product._id}>
-  //           <Card className="h-100 d-flex flex-column">
-  //             <Card.Img
-  //               variant="top"
-  //               src={product.image || placeholderImgUrl}
-  //               alt={product.name}
-  //             />
-  //             <Card.Body className="d-flex flex-column">
-  //               <Card.Title>{product.name}</Card.Title>
-  //               <Card.Text>{product.description}</Card.Text>
-  //               <div className="mt-auto">
-  //                 <Card.Text className="mt-auto">
-  //                   Price: ${product.price}
-  //                 </Card.Text>
-  //                 <Button variant="primary" className="w-100">
-  //                   Buy Now
-  //                 </Button>
-  //               </div>
-  //             </Card.Body>
-  //           </Card>
-  //         </Col>
-  //       ))}
-  //     </Row>
-  //   </Container>
-  // );
-  return (
+  return user.isAdmin ? (
+    <Navigate to="/dashboard" />
+  ) : (
     <Container className="mt-5">
-      {/* <Row>
-  //     {showProduct.map((product) => (
-  //       <Col key={product._id} className="p-5 text-center">
-  //         <div>
-  //           <h3>{product.name}</h3>
-  //           <p>{product.description}</p>
-  //           <p>Price: ${product.price}</p>
-  //         </div>
-  //       </Col>
-  //     ))}
-  //   </Row> */}
-
       <Row xs={1} md={2} lg={3} className="g-4">
         {showProduct.map((product) => (
           <Col key={product._id}>
@@ -97,7 +45,7 @@ const ProductPage = () => {
                     className="btn btn-primary"
                     to={`/productdetails/${product._id}`}
                   >
-                    Details
+                    Mga detalye
                   </Link>
                 </div>
               </Card.Body>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   Button,
@@ -10,6 +10,11 @@ import {
 } from "react-bootstrap";
 
 const ProfilePage = () => {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
+  const [status, setStatus] = useState("");
+
   const [showModal, setShowModal] = useState(false); // State to manage modal visibility
 
   const profileImage =
@@ -19,6 +24,29 @@ const ProfilePage = () => {
   const toggleModal = () => {
     setShowModal(!showModal);
   };
+
+  useEffect(() => {
+    fetch(
+      "http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/users/details",
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setFullName(`${data.user.firstName} ${data.user.lastName}`);
+        setEmail(data.user.email);
+        setContact(data.user.mobileNo);
+        if (data.user.isAdmin) {
+          setStatus("Admin");
+        } else {
+          setStatus("User");
+        }
+      });
+  }, []);
 
   return (
     <>
@@ -34,10 +62,8 @@ const ProfilePage = () => {
                 style={{ width: "150px" }}
               />
               <Card.Body>
-                <Card.Title className="text-center">John Doe</Card.Title>
-                <Card.Text className="text-center">
-                  Full Stack Developer
-                </Card.Text>
+                <Card.Title className="text-center">{fullName}</Card.Title>
+                <Card.Text className="text-center">{status}</Card.Text>
                 <Row className="justify-content-center">
                   <Col className="text-center">
                     <Button variant="primary">Follow</Button>
@@ -50,14 +76,14 @@ const ProfilePage = () => {
             <Card style={{ width: "80%" }} className="shadow">
               <Card.Body>
                 <Col lg={9}>
-                  <Card.Title>Account Name</Card.Title>
-                  <Card.Text>John Doe</Card.Text>
+                  <Card.Title>Kumpletong Pangalan</Card.Title>
+                  <Card.Text>{fullName}</Card.Text>
                   <Card.Title>Email</Card.Title>
-                  <Card.Text>johndoe@mail.com</Card.Text>
+                  <Card.Text>{email}</Card.Text>
                   <Card.Title>Contact</Card.Title>
-                  <Card.Text>12345</Card.Text>
-                  <Card.Title>Status</Card.Title>
-                  <Card.Text>User</Card.Text>
+                  <Card.Text>{contact}</Card.Text>
+                  <Card.Title>Katayuan</Card.Title>
+                  <Card.Text>{status}</Card.Text>
                   <Button onClick={toggleModal}>Change Password</Button>
                 </Col>
               </Card.Body>

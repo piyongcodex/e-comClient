@@ -3,7 +3,7 @@ import React from "react";
 // import Banner from "./components/banner/Banner";
 import { useState, useEffect } from "react";
 import { AppNavBar } from "./components";
-import { LoginPage, RegisterPage, HomePage, Logout } from "./pages";
+import { LoginPage, RegisterPage, HomePage, Logout, Error } from "./pages";
 import { AddProduct, DashboardPage } from "./admin";
 import { ProductPage, ProfilePage, ProductDetails, CartView } from "./users";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -68,6 +68,7 @@ const Main = () => {
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/profilepage" element={<ProfilePage />} />
             <Route path="/cart" element={<CartView />} />
+            <Route path="*" element={<Error />} />
 
             <Route
               path="/productdetails/:pid"

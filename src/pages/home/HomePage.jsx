@@ -40,11 +40,11 @@ const HomePage = () => {
       </Row>
       <Row>
         <Col className="p-5 text-center">
-          <h1>Mabuhay Philippines Halikana </h1>
-          <p>Tara nat magsaya sheesh</p>
+          <h1>Mabuhay Philippines</h1>
+          <h5>Pindutin ang 'Produkto' para makita ang listahan</h5>
 
           <Link className="btn btn-primary" to="/products">
-            Products
+            Produkto
           </Link>
         </Col>
       </Row>

@@ -95,7 +95,7 @@ const ProductDetails = () => {
   return (
     <Container>
       <Row className="justify-content-md-center">
-        <h1 className="display-1 text-center mt-5">Add To Cart</h1>
+        <h1 className="display-1 text-center mt-5">Idagdag sa cart</h1>
         <Col xs="auto" className="mt-5">
           <Form onSubmit={(e) => addtocart(e)}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -133,7 +133,7 @@ const ProductDetails = () => {
               </InputGroup>
             </FormGroup>
             <Button variant="primary" type="submit">
-              Add to Cart
+              Add
             </Button>
           </Form>
         </Col>

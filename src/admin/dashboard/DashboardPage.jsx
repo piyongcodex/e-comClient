@@ -27,9 +27,10 @@ const DashboardPage = () => {
     // }
   });
 
-  return user.id === null ? (
-    <Navigate to="/login" />
-  ) : (
+  // return user.id === null ? (
+  //   <Navigate to="/login" />
+  // ) : (
+  return user.isAdmin ? (
     <Container>
       <h1 className="display-1 text-center mt-5">DashboardPage</h1>
       <Table responsive striped bordered className="mt-5">
@@ -65,7 +66,11 @@ const DashboardPage = () => {
         </tbody>
       </Table>
     </Container>
+  ) : (
+    <Navigate to="/products" />
   );
+
+  // );
 };
 
 export default DashboardPage;

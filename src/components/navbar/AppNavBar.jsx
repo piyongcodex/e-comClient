@@ -19,91 +19,11 @@ const AppNavBar = () => {
   };
 
   return (
-    // <Navbar bg="dark" data-bs-theme="dark">
-    //   <Container>
-    //     <Navbar.Brand href="#home">E-commerce</Navbar.Brand>
-    //     <Nav className=" justify-content-end">
-    //       {user.id !== null ? (
-    //         <>
-    //           {/* <Nav.Link as={NavLink} to="/dashboard">
-    //             {user.firstName}
-    //           </Nav.Link> */}
-    //           {/* <Nav.Link
-    //             as={NavLink}
-    //             to="/dashboard"
-    //             onMouseEnter={() => setIsHovered(true)}
-    //             onMouseLeave={() => setIsHovered(false)}
-    //           >
-    //             {user.firstName}
-    //           </Nav.Link>
-    //           {isHovered && (
-    //             <Nav.Link as={Link} to="/logout">
-    //               Logout
-    //             </Nav.Link>
-    //           )} */}
-    //           <Nav className="ml-auto">
-    //             <Nav.Link
-    //               onClick={toggleDropdown}
-    //               style={{ cursor: "pointer" }}
-    //             >
-    //               {user.firstName} <FontAwesomeIcon icon={faCaretDown} />
-    //             </Nav.Link>
-
-    //             <Dropdown
-    //               show={dropdownOpen}
-    //               onMouseLeave={closeDropdown}
-    //               align="end"
-    //             >
-    //               <Dropdown.Menu>
-    //                 <Dropdown.Item as={NavLink} to="/profile">
-    //                   Profile
-    //                 </Dropdown.Item>
-    //                 <Dropdown.Divider />
-    //                 <Dropdown.Item as={NavLink} to="/logout">
-    //                   Logout
-    //                 </Dropdown.Item>
-    //               </Dropdown.Menu>
-    //             </Dropdown>
-    //           </Nav>
-    //           {user.isAdmin ? (
-    //             <>
-    //               <Nav.Link as={Link} to="/addProduct">
-    //                 Create Product
-    //               </Nav.Link>
-    //               <Nav.Link as={Link} to="/dashboard">
-    //                 DashBoard
-    //               </Nav.Link>
-    //             </>
-    //           ) : (
-    //             <>
-    //               <Nav.Link as={NavLink} to="/" exact="true">
-    //                 Home
-    //               </Nav.Link>
-    //               <Nav.Link as={Link} to="/products">
-    //                 Products
-    //               </Nav.Link>
-    //             </>
-    //           )}
-    //           {/* <Nav.Link as={Link} to="/logout">
-    //             Logout
-    //           </Nav.Link> */}
-    //         </>
-    //       ) : (
-    //         <>
-    //           <Nav.Link as={Link} to="/register">
-    //             Register
-    //           </Nav.Link>
-    //           <Nav.Link as={Link} to="/login">
-    //             Login
-    //           </Nav.Link>
-    //         </>
-    //       )}
-    //     </Nav>
-    //   </Container>
-    // </Navbar>
     <Navbar bg="dark" data-bs-theme="dark">
       <Container>
-        <Navbar.Brand href="#home">E-commerce</Navbar.Brand>
+        <Navbar.Brand href="#home">
+          E-Komersiyo | Von Larong & Rio Sumandal
+        </Navbar.Brand>
         <Nav className="justify-content-end">
           {user.id !== null ? (
             <>
@@ -122,7 +42,7 @@ const AppNavBar = () => {
                     Home
                   </Nav.Link>
                   <Nav.Link as={Link} to="/products">
-                    Products
+                    Mga Produkto
                   </Nav.Link>
                   <Nav.Link as={Link} to="/cart">
                     <FontAwesomeIcon icon={faShoppingCart} size="lg" />{" "}
