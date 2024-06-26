@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Col, Row } from "react-bootstrap";
+import { Button, Form, Col, Row, Container } from "react-bootstrap";
 import Swal from "sweetalert2";
 
 const AddProduct = () => {
@@ -73,51 +73,54 @@ const AddProduct = () => {
 
   return (
     <>
-      <Row className="justify-content-center align-items-center m-5 p-5">
-        <Col xs={5}>
-          <Form onSubmit={(e) => create(e)}>
-            <Form.Group className="mb-3">
-              <Form.Label>Product Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Type the product name here"
-                value={name}
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
-              />
-            </Form.Group>
+      <Container>
+        <h1 className="display-1 mt-5 text-center">Add Product</h1>
+        <Row className="justify-content-center align-items-center m-5 p-5">
+          <Col xs={5}>
+            <Form onSubmit={(e) => create(e)}>
+              <Form.Group className="mb-3">
+                <Form.Label>Product Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Type the product name here"
+                  value={name}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
+                />
+              </Form.Group>
 
-            <Form.Group className="mb-3">
-              <Form.Label>Description</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Type the description"
-                value={desc}
-                onChange={(e) => {
-                  setDesc(e.target.value);
-                }}
-              />
-            </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Description</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Type the description"
+                  value={desc}
+                  onChange={(e) => {
+                    setDesc(e.target.value);
+                  }}
+                />
+              </Form.Group>
 
-            <Form.Group className="mb-3">
-              <Form.Label>Price</Form.Label>
-              <Form.Control
-                type="number"
-                value={price}
-                onChange={(e) => {
-                  setPrice(e.target.value);
-                }}
-                min="0"
-              />
-            </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Price</Form.Label>
+                <Form.Control
+                  type="number"
+                  value={price}
+                  onChange={(e) => {
+                    setPrice(e.target.value);
+                  }}
+                  min="0"
+                />
+              </Form.Group>
 
-            <Button variant="primary" type="submit" disabled={isDisabled}>
-              Submit
-            </Button>
-          </Form>
-        </Col>
-      </Row>
+              <Button variant="primary" type="submit" disabled={isDisabled}>
+                Submit
+              </Button>
+            </Form>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 };
