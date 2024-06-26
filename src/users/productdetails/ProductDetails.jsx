@@ -10,6 +10,8 @@ import {
   Col,
   Container,
 } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 
 import Swal from "sweetalert2";
 
@@ -90,7 +92,7 @@ const ProductDetails = () => {
   return (
     <Container>
       <Row className="justify-content-md-center">
-        <h1 className="display-1 text-center mt-5">Idagdag sa cart</h1>
+        <h1 className="display-1 text-center mt-5">Add To Cart</h1>
         <Col xs="auto" className="mt-5">
           <Form onSubmit={(e) => addtocart(e)}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -127,9 +129,12 @@ const ProductDetails = () => {
                 </Button>
               </InputGroup>
             </FormGroup>
-            <Button variant="primary" type="submit">
-              Add
-            </Button>
+            <div className="text-center">
+              <Button variant="primary" type="submit">
+                <FontAwesomeIcon icon={faCartPlus} className="me-2" />
+                Add to Cart
+              </Button>
+            </div>
           </Form>
         </Col>
       </Row>

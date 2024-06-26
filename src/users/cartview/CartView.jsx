@@ -321,17 +321,17 @@ const CartView = () => {
                       <tbody>
                         {cartItems.map((item, index) => (
                           <tr key={index}>
-                            <td>
+                            <td className="text-center pt-3">
                               {productDetails[index]
                                 ? productDetails[index].name
                                 : ""}
                             </td>
-                            <td>
+                            <td className="text-center pt-3">
                               {productDetails[index]
                                 ? productDetails[index].price
                                 : 0}
                             </td>
-                            <td>
+                            <td className="text-center pt-3">
                               <Form>
                                 <FormGroup>
                                   <InputGroup
@@ -351,6 +351,7 @@ const CartView = () => {
                                       min="1"
                                       value={item.quantity}
                                       readOnly
+                                      style={{ textAlign: "center" }}
                                     />
                                     <Button
                                       variant="outline-secondary btn-dark"
@@ -364,13 +365,13 @@ const CartView = () => {
                                 </FormGroup>
                               </Form>
                             </td>
-                            <td>
+                            <td className="text-center pt-3">
                               {item.quantity *
                                 (productDetails[index]
                                   ? productDetails[index].price
                                   : 0)}
                             </td>
-                            <td>
+                            <td className="text-center pt-3">
                               <RemoveFromCart
                                 product={item.productId}
                                 reload={reload}
@@ -394,6 +395,16 @@ const CartView = () => {
                         <h1 className="text-center">
                           Total: ${total.toFixed(2)}
                         </h1>
+                      </Col>
+                    </Row>
+                    <Row className="mt-3">
+                      <Col className="text-center">
+                        <Button
+                          variant="primary"
+                          onClick={() => navigate("/products")}
+                        >
+                          Back to Products
+                        </Button>
                       </Col>
                     </Row>
                   </Card.Body>

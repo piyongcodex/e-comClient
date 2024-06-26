@@ -29,7 +29,7 @@ const DashboardPage = () => {
   // ) : (
   return user.isAdmin ? (
     <Container>
-      <h1 className="display-1 text-center mt-5">DashboardPage</h1>
+      <h1 className="display-1 text-center mt-5">Admin Dashboard</h1>
       <Table responsive striped bordered className="mt-5">
         <thead>
           <tr className="text-center">

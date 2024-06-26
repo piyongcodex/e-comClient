@@ -32,7 +32,12 @@ const ClearCart = ({ reload }) => {
   };
 
   return (
-    <Button variant="warning" size="sm" onClick={() => clear()}>
+    <Button
+      variant="warning"
+      size="sm"
+      onClick={() => clear()}
+      className="bold-text"
+    >
       CLEAR CART
     </Button>
   );

@@ -102,7 +102,7 @@ const ProfilePage = () => {
   return (
     <>
       <Container>
-        <div className="text-center display-1 mt-5">ProfilePage</div>
+        <div className="text-center display-1 mt-5">Profile</div>
         <Row className="mt-5">
           <Col lg={4} className="d-flex justify-content-center">
             <Card style={{ width: "18rem" }} className="shadow">
@@ -127,13 +127,13 @@ const ProfilePage = () => {
             <Card style={{ width: "80%" }} className="shadow">
               <Card.Body>
                 <Col lg={9}>
-                  <Card.Title>Kumpletong Pangalan</Card.Title>
+                  <Card.Title>Full Name</Card.Title>
                   <Card.Text>{fullName}</Card.Text>
                   <Card.Title>Email</Card.Title>
                   <Card.Text>{email}</Card.Text>
                   <Card.Title>Contact</Card.Title>
                   <Card.Text>{contact}</Card.Text>
-                  <Card.Title>Katayuan</Card.Title>
+                  <Card.Title>Status</Card.Title>
                   <Card.Text>{status}</Card.Text>
                   <Button onClick={toggleModal}>Change Password</Button>
                 </Col>

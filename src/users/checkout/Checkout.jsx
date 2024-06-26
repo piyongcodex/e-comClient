@@ -43,8 +43,7 @@ const Checkout = ({ reload }) => {
 
   return (
     <Button variant="dark" size="sm" onClick={() => checkout()}>
-      Checkout
-      <FontAwesomeIcon icon={faArrowRight} />
+      CHECKOUT <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
     </Button>
   );
 };

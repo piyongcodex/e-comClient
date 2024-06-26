@@ -21,8 +21,8 @@ const AppNavBar = () => {
   return (
     <Navbar bg="dark" data-bs-theme="dark">
       <Container>
-        <Navbar.Brand href="#home">
-          E-Komersiyo | Von Larong & Rio Sumandal
+        <Navbar.Brand href="/">
+          E-commerce | Von Larong & Rio Sumandal
         </Navbar.Brand>
         <Nav className="justify-content-end">
           {user.id !== null ? (
@@ -30,13 +30,13 @@ const AppNavBar = () => {
               {user.isAdmin ? (
                 <>
                   <Nav.Link as={Link} to="/addProduct">
-                    Create Product
+                    Add Product
                   </Nav.Link>
                   <Nav.Link as={Link} to="/dashboard">
                     DashBoard
                   </Nav.Link>
                   <Nav.Link as={Link} to="/orderslist">
-                    View Order List
+                    Orders
                   </Nav.Link>
                 </>
               ) : (
@@ -45,7 +45,7 @@ const AppNavBar = () => {
                     Home
                   </Nav.Link>
                   <Nav.Link as={Link} to="/products">
-                    Mga Produkto
+                    Products
                   </Nav.Link>
                   <Nav.Link as={Link} to="/cart">
                     <FontAwesomeIcon icon={faShoppingCart} size="lg" />{" "}

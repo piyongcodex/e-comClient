@@ -11,7 +11,7 @@ const OrderDate = ({ order }) => {
     year: "numeric",
   });
 
-  return <td>{formattedDate}</td>;
+  return <td className="p-3">{formattedDate}</td>;
 };
 
 const ViewOrderList = () => {
@@ -39,19 +39,19 @@ const ViewOrderList = () => {
             <tr className="text-center">
               <th>Order I.D.</th>
               <th>User I.D.</th>
-              <th>Products Ordered</th>
-              <th>Total</th>
-              <th>Ordered Date</th>
+              <th className="p-2">Products Ordered</th>
+              <th className="p-2">Total</th>
+              <th className="p-2">Date</th>
               <th>Status</th>
             </tr>
           </thead>
           <tbody className="text-center">
             {orders.map((order) => (
               <tr key={order._id}>
-                <td>{order._id}</td>
+                <td className="p-3">{order._id}</td>
                 <FetchUserName userId={order.userId} />
                 <FetchOrderByUser orderId={order._id} />
-                <td>$ {parseFloat(order.totalPrice).toFixed(2)}</td>
+                <td>$ {parseFloat(order.totalPrice)}</td>
                 <OrderDate order={order} />
                 <td>
                   {order.status === "Pending" ? (

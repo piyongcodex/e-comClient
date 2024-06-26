@@ -23,7 +23,8 @@ const ProductPage = () => {
     <Navigate to="/dashboard" />
   ) : (
     <Container className="mt-5">
-      <Row xs={1} md={2} lg={3} className="g-4">
+      <h1 className="display-1 text-center">Products</h1>
+      <Row xs={1} md={2} lg={3} className="g-4 mt-5">
         {showProduct.map((product) => (
           <Col key={product._id}>
             <Card className="h-100 d-flex flex-column">
@@ -43,7 +44,7 @@ const ProductPage = () => {
                     className="btn btn-primary"
                     to={`/productdetails/${product._id}`}
                   >
-                    Mga detalye
+                    Details
                   </Link>
                 </div>
               </Card.Body>

@@ -19,7 +19,7 @@ const FetchUserName = ({ userId }) => {
       //   console.log(data.user.email);
     });
 
-  return <td>{email}</td>;
+  return <td className="p-3">{email}</td>;
 };
 
 export default FetchUserName;
