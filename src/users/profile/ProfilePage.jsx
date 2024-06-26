@@ -8,12 +8,66 @@ import {
   Modal,
   Form,
 } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 const ProfilePage = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
   const [status, setStatus] = useState("");
+  // For Change Password
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handleResetPassword = async (e) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      Swal.fire({
+        title: "Password do not Match!",
+        icon: "error",
+      });
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem("token"); // Replace with your actual JWT token
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/users/update-password`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ newPassword: password }),
+        }
+      );
+
+      if (response.ok) {
+        Swal.fire({
+          title: "Password Reset Successfully!",
+          icon: "success",
+        });
+        setPassword("");
+        setConfirmPassword("");
+        setShowModal(false);
+      } else {
+        const errorData = await response.json();
+        Swal.fire({
+          title: `${errorData}`,
+          icon: "error",
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "An error occurred. Please try again.",
+        icon: "error",
+      });
+
+      console.error(error);
+    }
+  };
 
   const [showModal, setShowModal] = useState(false); // State to manage modal visibility
 
@@ -90,28 +144,28 @@ const ProfilePage = () => {
       </Container>
 
       {/* Modal for changing password */}
-      <Modal show={showModal} onHide={toggleModal}>
+      {/* <Modal show={showModal} onHide={toggleModal}>
         <Modal.Header closeButton>
           <Modal.Title>Change Password</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
-            <Form.Group controlId="currentPassword">
-              <Form.Label>Current Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Enter current password"
-              />
-            </Form.Group>
+          <Form onSubmit={handleResetPassword}>
             <Form.Group controlId="newPassword">
               <Form.Label>New Password</Form.Label>
-              <Form.Control type="password" placeholder="Enter new password" />
+              <Form.Control
+                type="password"
+                placeholder="Enter new password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </Form.Group>
             <Form.Group controlId="confirmNewPassword">
               <Form.Label>Confirm New Password</Form.Label>
               <Form.Control
                 type="password"
                 placeholder="Confirm new password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </Form.Group>
           </Form>
@@ -120,10 +174,45 @@ const ProfilePage = () => {
           <Button variant="secondary" onClick={toggleModal}>
             Close
           </Button>
-          <Button variant="primary" onClick={toggleModal}>
+          <Button variant="primary" onClick={toggleModal} type="submit">
             Save Changes
           </Button>
         </Modal.Footer>
+      </Modal> */}
+      <Modal show={showModal} onHide={toggleModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Change Password</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleResetPassword}>
+            <Form.Group controlId="newPassword">
+              <Form.Label>New Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Enter new password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="confirmNewPassword" className="mt-2">
+              <Form.Label>Confirm New Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Confirm new password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </Form.Group>
+            <Modal.Footer className="mt-3">
+              <Button variant="secondary" onClick={toggleModal}>
+                Close
+              </Button>
+              <Button variant="primary" type="submit">
+                Save Changes
+              </Button>
+            </Modal.Footer>
+          </Form>
+        </Modal.Body>
       </Modal>
     </>
   );
