@@ -37,14 +37,11 @@ const CartView = () => {
 
   //first render
   useEffect(() => {
-    fetch(
-      `http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/cart/get-cart`,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    )
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/cart/get-cart`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -84,14 +81,11 @@ const CartView = () => {
   // }, [user.isAdmin]);
 
   const reload = () => {
-    fetch(
-      `http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/cart/get-cart`,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    )
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/cart/get-cart`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -108,9 +102,7 @@ const CartView = () => {
   };
 
   const fetchProductDetails = (productId) => {
-    return fetch(
-      `http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/products/${productId}`
-    )
+    return fetch(`${process.env.REACT_APP_API_BASE_URL}/products/${productId}`)
       .then((res) => res.json())
       .then((data) => {
         return {
@@ -162,21 +154,18 @@ const CartView = () => {
     console.log(productId);
     console.log(price);
     //update price
-    fetch(
-      `http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/cart/update-cart-quantity`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({
-          productId: productId,
-          quantity: quantity,
-          subtotal: quantity * price,
-        }),
-      }
-    );
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/cart/update-cart-quantity`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({
+        productId: productId,
+        quantity: quantity,
+        subtotal: quantity * price,
+      }),
+    });
   };
 
   //   return (

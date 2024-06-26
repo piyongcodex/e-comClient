@@ -3,19 +3,18 @@ import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Checkout = ({ reload }) => {
+  const navigate = useNavigate();
   const checkout = () => {
-    fetch(
-      `http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/orders/checkout`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    )
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/orders/checkout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -30,6 +29,7 @@ const Checkout = ({ reload }) => {
             title: "Order success",
             icon: "success",
           });
+          navigate("/");
           reload();
         } else {
           Swal.fire({

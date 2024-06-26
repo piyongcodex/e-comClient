@@ -8,9 +8,7 @@ const ProductPage = () => {
   const [showProduct, setProduct] = useState([]);
 
   useEffect(() => {
-    fetch(
-      "http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/products/active"
-    )
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/products/active`)
       .then((res) => res.json())
       .then((data) => {
         setProduct(data.products);

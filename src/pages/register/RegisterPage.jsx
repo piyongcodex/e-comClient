@@ -45,20 +45,17 @@ const RegisterPage = () => {
   const registerUser = (e) => {
     e.preventDefault();
 
-    fetch(
-      "http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/users/register",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          mobileNo: mobileNo,
-          password: password,
-        }),
-      }
-    )
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/users/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        mobileNo: mobileNo,
+        password: password,
+      }),
+    })
       .then((res) => res.json())
       .then((data) => {
         console.table(data);

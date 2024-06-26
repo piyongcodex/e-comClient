@@ -14,20 +14,18 @@ const LoginPage = () => {
 
   //login
   function login(e) {
+    console.log("asdasd");
     e.preventDefault();
-    fetch(
-      "http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/users/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      }
-    )
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
       .then((res) => res.json())
       .then((data) => {
         // console.log(email);
@@ -61,14 +59,11 @@ const LoginPage = () => {
   }
   //retrieve data
   const retrieveUserDetails = (token) => {
-    fetch(
-      "http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/users/details",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/users/details`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setUser({

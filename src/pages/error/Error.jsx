@@ -5,7 +5,7 @@ const Error = () => {
     <>
       <h1 className="text-center">404 - Not found</h1>
       <h3 className="text-center">
-        The page you are looking for cannot be found
+        Ang pahina na iyong hinahanap ay hindi matagpuan
       </h3>
     </>
   );

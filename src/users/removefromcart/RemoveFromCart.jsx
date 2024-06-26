@@ -6,7 +6,7 @@ const RemoveFromCart = ({ product, reload }) => {
   const remove = (productId) => {
     console.log(productId);
     fetch(
-      `http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/cart/${productId}/remove-from-cart`,
+      `${process.env.REACT_APP_API_BASE_URL}/cart/${productId}/remove-from-cart`,
       {
         method: "PATCH",
         headers: {

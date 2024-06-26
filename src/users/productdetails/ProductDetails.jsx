@@ -26,9 +26,7 @@ const ProductDetails = () => {
   const [price, setPrice] = useState("");
 
   useEffect(() => {
-    fetch(
-      `http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/products/${pid}`
-    )
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/products/${pid}`)
       .then((res) => res.json())
       .then((data) => {
         setName(data.product.name);
@@ -59,21 +57,18 @@ const ProductDetails = () => {
   const addtocart = (e) => {
     e.preventDefault();
 
-    fetch(
-      "http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/cart/add-to-cart",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({
-          productId: pid,
-          quantity: quantity,
-          subtotal: quantity * price,
-        }),
-      }
-    )
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/cart/add-to-cart`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({
+        productId: pid,
+        quantity: quantity,
+        subtotal: quantity * price,
+      }),
+    })
       .then((res) => res.json())
       .then((data) => {
         const itemIndex = data.cart.cartItems.findIndex(

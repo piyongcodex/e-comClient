@@ -26,14 +26,11 @@ const ProfilePage = () => {
   };
 
   useEffect(() => {
-    fetch(
-      "http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/users/details",
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    )
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/users/details`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
