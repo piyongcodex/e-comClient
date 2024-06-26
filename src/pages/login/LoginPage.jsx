@@ -150,7 +150,7 @@ const LoginPage = () => {
     </>
   ) : (
     <Container>
-      <h1 className="display-1 text-center mt-5 mb-5">Login Page</h1>
+      <h1 className="display-1 text-center mt-5 mb-5">Login</h1>
       <Row>
         <Col className="justify-content-center align-items-center">
           {/* <h1 className="">Login Page</h1> */}
