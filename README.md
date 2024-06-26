@@ -7,10 +7,10 @@
 
 ### User
 
-- Username : user1@mail.com
+- Username : regularvon@mail.com
 - Password : 12345678
 
 ### Admin
 
-- Username : vonvitz@mail.com
+- Username : adminvon@mail.com
 - Password : 12345678
