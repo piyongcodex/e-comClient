@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-// import UserContext from "../../UserContext";
+import React, { useEffect, useState, useContext } from "react";
+import UserContext from "../../UserContext";
 // import { useParams } from "react-router-dom";
 import RemoveFromCart from "../removefromcart/RemoveFromCart";
 import ClearCart from "../clearcart/ClearCart";
 import Checkout from "../checkout/Checkout";
+import { Navigate, useNavigate } from "react-router-dom";
 
 import {
   Card,
@@ -22,7 +23,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 const CartView = () => {
-  // const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   // const { pid } = useParams();
   // const [name, setName] = useState("");
   // const [price, setPrice] = useState(0);
@@ -32,6 +33,7 @@ const CartView = () => {
   const [cartItems, setCartItems] = useState([]);
   const [productDetails, setProductDetails] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   //first render
   useEffect(() => {
@@ -55,6 +57,31 @@ const CartView = () => {
         }
       });
   }, []);
+  // useEffect(() => {
+  //   if (!user.isAdmin) {
+  //     fetch(
+  //       `http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/cart/get-cart`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //         },
+  //       }
+  //     )
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         console.log(data);
+  //         // if (data.error === "Cart not found") {
+  //         //   setLoading(false);
+  //         // } else {
+  //         //   setCartItems(data.cart.cartItems || []);
+  //         //   setTotal(data.cart.totalPrice);
+  //         //   setLoading(false);
+  //         // }
+  //       });
+  //   } else {
+  //     setLoading(false);
+  //   }
+  // }, [user.isAdmin]);
 
   const reload = () => {
     fetch(
@@ -152,116 +179,239 @@ const CartView = () => {
     );
   };
 
+  //   return (
+  //     <>
+  //       {user.isAdmin === true ? (<Navigate to="/dashboard" />) : ({" "}
+  //       {loading ? (
+  //         <div className="d-flex justify-content-center align-items-center vh-100">
+  //           <Spinner
+  //             animation="border"
+  //             role="status"
+  //             style={{ width: "5rem", height: "5rem" }}
+  //             variant="danger"
+  //           >
+  //             <span className="visually-hidden">Loading...</span>
+  //           </Spinner>
+  //         </div>
+  //       ) : (
+  //         <>
+  //           <h1 className="display-1 mt-5 text-center">Cart</h1>
+  //           <h2 className="display-5 mt-5 text-center">Your Shopping Cart</h2>
+  //           <Container className="mt-5">
+  //             <Card>
+  //               <Card.Body>
+  //                 <Table striped bordered hover>
+  //                   <thead className="text-center">
+  //                     <tr>
+  //                       <th>Name</th>
+  //                       <th>Price</th>
+  //                       <th>Quantity</th>
+  //                       <th>Subtotal</th>
+  //                       <th>Action</th>
+  //                     </tr>
+  //                   </thead>
+  //                   <tbody>
+  //                     {cartItems.map((item, index) => (
+  //                       <tr key={index}>
+  //                         <td>
+  //                           {productDetails[index]
+  //                             ? productDetails[index].name
+  //                             : ""}
+  //                         </td>
+  //                         <td>
+  //                           {productDetails[index]
+  //                             ? productDetails[index].price
+  //                             : 0}
+  //                         </td>
+  //                         <td>
+  //                           <Form>
+  //                             <FormGroup>
+  //                               <InputGroup
+  //                                 className="mb-3 mx-auto"
+  //                                 style={{ maxWidth: "150px" }}
+  //                               >
+  //                                 <Button
+  //                                   variant="outline-secondary btn-dark"
+  //                                   onClick={() =>
+  //                                     handleQuantityChange(index, -1)
+  //                                   }
+  //                                 >
+  //                                   -
+  //                                 </Button>
+  //                                 <FormControl
+  //                                   type="number"
+  //                                   min="1"
+  //                                   value={item.quantity}
+  //                                   readOnly
+  //                                 />
+  //                                 <Button
+  //                                   variant="outline-secondary btn-dark"
+  //                                   onClick={() => handleQuantityChange(index, 1)}
+  //                                 >
+  //                                   +
+  //                                 </Button>
+  //                               </InputGroup>
+  //                             </FormGroup>
+  //                           </Form>
+  //                         </td>
+  //                         <td>
+  //                           {item.quantity *
+  //                             (productDetails[index]
+  //                               ? productDetails[index].price
+  //                               : 0)}
+  //                         </td>
+  //                         <td>
+  //                           <RemoveFromCart
+  //                             product={item.productId}
+  //                             reload={reload}
+  //                           />
+  //                         </td>
+  //                       </tr>
+  //                     ))}
+  //                   </tbody>
+  //                 </Table>
+
+  //                 <Row>
+  //                   <Row>
+  //                     <Col>
+  //                       {/* <Button variant="warning">Clear Cart</Button> */}
+  //                       <ClearCart reload={reload} />
+  //                     </Col>
+  //                     <Col className=" d-flex justify-content-end align-items-center">
+  //                       <Checkout reload={reload} />
+  //                     </Col>
+  //                   </Row>
+
+  //                   <Col>
+  //                     <h1 className="text-center">Total: ${total.toFixed(2)}</h1>
+  //                   </Col>
+  //                 </Row>
+  //               </Card.Body>
+  //             </Card>
+  //           </Container>
+  //         </>
+  //       )}
+  // )
+  //     </>
+  //   );
+
   return (
     <>
-      {loading ? (
-        <div className="d-flex justify-content-center align-items-center vh-100">
-          <Spinner
-            animation="border"
-            role="status"
-            style={{ width: "5rem", height: "5rem" }}
-            variant="danger"
-          >
-            <span className="visually-hidden">Loading...</span>
-          </Spinner>
-        </div>
+      {user.isAdmin === true ? (
+        <Navigate to="/dashboard" />
       ) : (
         <>
-          <h1 className="display-1 mt-5 text-center">Cart</h1>
-          <h2 className="display-5 mt-5 text-center">Your Shopping Cart</h2>
-          <Container className="mt-5">
-            <Card>
-              <Card.Body>
-                <Table striped bordered hover>
-                  <thead className="text-center">
-                    <tr>
-                      <th>Name</th>
-                      <th>Price</th>
-                      <th>Quantity</th>
-                      <th>Subtotal</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {cartItems.map((item, index) => (
-                      <tr key={index}>
-                        <td>
-                          {productDetails[index]
-                            ? productDetails[index].name
-                            : ""}
-                        </td>
-                        <td>
-                          {productDetails[index]
-                            ? productDetails[index].price
-                            : 0}
-                        </td>
-                        <td>
-                          <Form>
-                            <FormGroup>
-                              <InputGroup
-                                className="mb-3 mx-auto"
-                                style={{ maxWidth: "150px" }}
-                              >
-                                <Button
-                                  variant="outline-secondary btn-dark"
-                                  onClick={() =>
-                                    handleQuantityChange(index, -1)
-                                  }
-                                >
-                                  -
-                                </Button>
-                                <FormControl
-                                  type="number"
-                                  min="1"
-                                  value={item.quantity}
-                                  readOnly
-                                />
-                                <Button
-                                  variant="outline-secondary btn-dark"
-                                  onClick={() => handleQuantityChange(index, 1)}
-                                >
-                                  +
-                                </Button>
-                              </InputGroup>
-                            </FormGroup>
-                          </Form>
-                        </td>
-                        <td>
-                          {item.quantity *
-                            (productDetails[index]
-                              ? productDetails[index].price
-                              : 0)}
-                        </td>
-                        <td>
-                          <RemoveFromCart
-                            product={item.productId}
-                            reload={reload}
-                          />
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </Table>
-
-                <Row>
-                  <Row>
-                    <Col>
-                      {/* <Button variant="warning">Clear Cart</Button> */}
-                      <ClearCart reload={reload} />
-                    </Col>
-                    <Col className=" d-flex justify-content-end align-items-center">
-                      <Checkout reload={reload} />
-                    </Col>
-                  </Row>
-
-                  <Col>
-                    <h1 className="text-center">Total: ${total.toFixed(2)}</h1>
-                  </Col>
-                </Row>
-                <Row></Row>
-              </Card.Body>
-            </Card>
-          </Container>
+          {loading ? (
+            <div className="d-flex justify-content-center align-items-center vh-100">
+              <Spinner
+                animation="border"
+                role="status"
+                style={{ width: "5rem", height: "5rem" }}
+                variant="danger"
+              >
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            </div>
+          ) : (
+            <>
+              <h1 className="display-1 mt-5 text-center">Cart</h1>
+              <h2 className="display-5 mt-5 text-center">Your Shopping Cart</h2>
+              <Container className="mt-5">
+                <Card>
+                  <Card.Body>
+                    <Table striped bordered hover>
+                      <thead className="text-center">
+                        <tr>
+                          <th>Name</th>
+                          <th>Price</th>
+                          <th>Quantity</th>
+                          <th>Subtotal</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {cartItems.map((item, index) => (
+                          <tr key={index}>
+                            <td>
+                              {productDetails[index]
+                                ? productDetails[index].name
+                                : ""}
+                            </td>
+                            <td>
+                              {productDetails[index]
+                                ? productDetails[index].price
+                                : 0}
+                            </td>
+                            <td>
+                              <Form>
+                                <FormGroup>
+                                  <InputGroup
+                                    className="mb-3 mx-auto"
+                                    style={{ maxWidth: "150px" }}
+                                  >
+                                    <Button
+                                      variant="outline-secondary btn-dark"
+                                      onClick={() =>
+                                        handleQuantityChange(index, -1)
+                                      }
+                                    >
+                                      -
+                                    </Button>
+                                    <FormControl
+                                      type="number"
+                                      min="1"
+                                      value={item.quantity}
+                                      readOnly
+                                    />
+                                    <Button
+                                      variant="outline-secondary btn-dark"
+                                      onClick={() =>
+                                        handleQuantityChange(index, 1)
+                                      }
+                                    >
+                                      +
+                                    </Button>
+                                  </InputGroup>
+                                </FormGroup>
+                              </Form>
+                            </td>
+                            <td>
+                              {item.quantity *
+                                (productDetails[index]
+                                  ? productDetails[index].price
+                                  : 0)}
+                            </td>
+                            <td>
+                              <RemoveFromCart
+                                product={item.productId}
+                                reload={reload}
+                              />
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </Table>
+                    <Row>
+                      <Row>
+                        <Col>
+                          {/* <Button variant="warning">Clear Cart</Button> */}
+                          <ClearCart reload={reload} />
+                        </Col>
+                        <Col className="d-flex justify-content-end align-items-center">
+                          <Checkout reload={reload} />
+                        </Col>
+                      </Row>
+                      <Col>
+                        <h1 className="text-center">
+                          Total: ${total.toFixed(2)}
+                        </h1>
+                      </Col>
+                    </Row>
+                  </Card.Body>
+                </Card>
+              </Container>
+            </>
+          )}
         </>
       )}
     </>
