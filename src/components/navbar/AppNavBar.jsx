@@ -35,6 +35,9 @@ const AppNavBar = () => {
                   <Nav.Link as={Link} to="/dashboard">
                     DashBoard
                   </Nav.Link>
+                  <Nav.Link as={Link} to="/orderslist">
+                    View Order List
+                  </Nav.Link>
                 </>
               ) : (
                 <>

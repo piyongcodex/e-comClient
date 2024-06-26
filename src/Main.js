@@ -4,7 +4,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { AppNavBar } from "./components";
 import { LoginPage, RegisterPage, HomePage, Logout, Error } from "./pages";
-import { AddProduct, DashboardPage } from "./admin";
+import { AddProduct, DashboardPage, ViewOrderList } from "./admin";
 import { ProductPage, ProfilePage, ProductDetails, CartView } from "./users";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserProvider } from "./UserContext";
@@ -65,6 +65,7 @@ const Main = () => {
             <Route path="/logout" element={<Logout />} />
             {/* ADMIN ROUTE */}
             <Route path="/addProduct" element={<AddProduct />} />
+            <Route path="/orderslist" element={<ViewOrderList />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/profilepage" element={<ProfilePage />} />
             <Route path="/cart" element={<CartView />} />

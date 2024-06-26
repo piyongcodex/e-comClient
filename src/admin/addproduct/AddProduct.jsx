@@ -25,21 +25,18 @@ const AddProduct = () => {
   const create = (e) => {
     e.preventDefault();
 
-    fetch(
-      "http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/products/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({
-          name: name,
-          description: desc,
-          price: price,
-        }),
-      }
-    )
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/products/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({
+        name: name,
+        description: desc,
+        price: price,
+      }),
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

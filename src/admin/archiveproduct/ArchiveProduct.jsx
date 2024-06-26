@@ -6,7 +6,7 @@ const ArchiveProduct = ({ product, isActive }) => {
   //archive
   const archiveToggle = (productId) => {
     fetch(
-      `http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/products/${productId}/archive`,
+      `${process.env.REACT_APP_API_BASE_URL}/products/${productId}/archive`,
       {
         method: "PATCH",
         headers: {
@@ -34,7 +34,7 @@ const ArchiveProduct = ({ product, isActive }) => {
   //activate
   const activateToggle = (productId) => {
     fetch(
-      `http://ec2-3-145-114-4.us-east-2.compute.amazonaws.com/b5/products/${productId}/activate`,
+      `${process.env.REACT_APP_API_BASE_URL}/products/${productId}/activate`,
       {
         method: "PATCH",
         headers: {
