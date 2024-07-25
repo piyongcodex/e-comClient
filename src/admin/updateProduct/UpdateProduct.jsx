@@ -4,24 +4,17 @@ import Swal from "sweetalert2";
 import { useState } from "react";
 
 const UpdateProduct = ({ product }) => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0);
+  const [name, setName] = useState(product.name);
+  const [description, setDescription] = useState(product.description);
+  const [price, setPrice] = useState(product.price);
 
   const [showEdit, setShowEdit] = useState(false);
 
   //open modal
-  const openEdit = (product) => {
-    console.log(product);
-    fetch(`${process.env.REACT_APP_API_BASE_URL}/products/${product}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data.product);
-
-        setName(data.product.name);
-        setDescription(data.product.description);
-        setPrice(data.product.price);
-      });
+  const openEdit = () => {
+    setName(name);
+    setDescription(description);
+    setPrice(price);
 
     setShowEdit(true);
   };
@@ -72,7 +65,7 @@ const UpdateProduct = ({ product }) => {
 
   return (
     <>
-      <Button variant="primary" size="sm" onClick={() => openEdit(product)}>
+      <Button variant="primary" size="sm" onClick={() => openEdit()}>
         Edit
       </Button>
 

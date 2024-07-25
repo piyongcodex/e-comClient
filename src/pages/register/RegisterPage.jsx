@@ -58,7 +58,7 @@ const RegisterPage = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.table(data);
+        // console.table(data);
         if (data.message === "Registered Successfully") {
           setFirstName("");
           setLastName("");

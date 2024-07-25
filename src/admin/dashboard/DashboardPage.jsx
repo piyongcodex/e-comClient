@@ -50,7 +50,7 @@ const DashboardPage = () => {
               <td>{parseFloat(product.price).toFixed(2)}</td>
               <td>{product.isActive ? "Available" : "Unavailable"}</td>
               <td>
-                <UpdateProduct product={product._id} />
+                <UpdateProduct product={product} />
               </td>
               <td>
                 <ArchiveProduct

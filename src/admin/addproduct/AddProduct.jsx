@@ -18,9 +18,9 @@ const AddProduct = () => {
     }
   }, [name, desc, price]);
 
-  console.log(name);
-  console.log(desc);
-  console.log(price);
+  // console.log(name);
+  // console.log(desc);
+  // console.log(price);
   //create function
   const create = (e) => {
     e.preventDefault();
