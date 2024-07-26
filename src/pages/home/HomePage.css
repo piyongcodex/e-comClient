@@ -1,0 +1,40 @@
+@import url("https://fonts.cdnfonts.com/css/sf-ui-display");
+.custom-card-title {
+  font-family: "SF UI Display", sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #343435; /* Optional: Set a different color on hover */
+}
+.card-hover-shadow {
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.card-hover-shadow:hover {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+.new-arrivals-title {
+  font-family: "SF UI Display", sans-serif;
+  font-weight: 600;
+  font-size: 2rem;
+  color: #343435;
+}
+
+.card-title,
+.card-text,
+.card-reviews {
+  font-family: "SF UI Display", sans-serif;
+}
+.custom-button {
+  font-weight: 700;
+}
+
+#about h1 {
+  font-family: "SF UI Display", sans-serif;
+  font-weight: 600;
+  font-size: 2rem;
+}
+#about p {
+  font-family: "SF UI Display", sans-serif;
+  font-weight: 300;
+  font-size: 1rem;
+}

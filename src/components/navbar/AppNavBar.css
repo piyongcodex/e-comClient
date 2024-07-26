@@ -1,0 +1,36 @@
+@import url("https://fonts.cdnfonts.com/css/sf-ui-display");
+
+.custom-navbar {
+  background-color: #fca311; /* Replace with your desired color */
+}
+
+.custom-navbar .nav-link:hover {
+  color: #6f7172; /* Optional: Set a different color on hover */
+}
+.custom-navbar .nav-link {
+  font-family: "SF UI Display", sans-serif;
+  font-size: 1rem;
+  color: #f8f9fa; /* Optional: Set a different color on hover */
+}
+.custom-navbar .dropdown-menu {
+  font-family: "SF UI Display", sans-serif;
+  background-color: #fca311; /* Match the navbar's background color */
+  color: white; /* Set text color in dropdown */
+}
+
+.custom-navbar .dropdown-item {
+  font-family: "SF UI Display", sans-serif;
+  color: white; /* Set color for dropdown items */
+}
+
+.custom-navbar .dropdown-item:hover {
+  background-color: #fca311; /* Optional: Set a different background color on hover */
+  color: #6f7172; /* Optional: Set a different color on hover */
+}
+.dropdown-menu {
+  display: none;
+}
+
+.dropdown-toggle:hover + .dropdown-menu {
+  display: block;
+}

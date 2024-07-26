@@ -69,6 +69,7 @@ const LoginPage = () => {
         setUser({
           id: data.user._id,
           isAdmin: data.user.isAdmin,
+          firstName: data.user.firstName,
         });
         // window.location.reload();
       });
@@ -83,62 +84,6 @@ const LoginPage = () => {
       setIsActive(false);
     }
   }, [email, password]);
-
-  // First Code ==========================================
-  // return (user.id !== null ? (
-  //   <>
-  //   {
-  //     user.isAdmin === true ?
-  //     (<Navigate to="/dashboard">):
-  //      (<Navigate to="/products" />)
-  //   }
-  //   </>
-  // ) : (
-  //   <Container>
-  //     <h1 className="display-1 text-center mt-5 mb-5">Login Page</h1>
-  //     <Row>
-  //       <Col className="justify-content-center align-items-center ">
-  //         {/* <h1 className="">Login Page</h1> */}
-  //         <Card>
-  //           {/* <Card.Header>Login Page</Card.Header> */}
-  //           <Card.Body>
-  //             <Form onSubmit={(e) => login(e)}>
-  //               <Form.Group className="mb-3" controlId="formBasicEmail">
-  //                 <Form.Label>Email address</Form.Label>
-  //                 <Form.Control
-  //                   type="email"
-  //                   placeholder="Enter email"
-  //                   value={email}
-  //                   onChange={(e) => setEmail(e.target.value)}
-  //                   required
-  //                 />
-  //                 <Form.Text className="text-muted">
-  //                   We'll never share your email with anyone else.
-  //                 </Form.Text>
-  //               </Form.Group>
-
-  //               <Form.Group className="mb-3" controlId="formBasicPassword">
-  //                 <Form.Label>Password</Form.Label>
-  //                 <Form.Control
-  //                   type="password"
-  //                   placeholder="Password"
-  //                   value={password}
-  //                   onChange={(e) => setPassword(e.target.value)}
-  //                   required
-  //                 />
-  //               </Form.Group>
-
-  //               <Button variant="primary" type="submit">
-  //                 Submit
-  //               </Button>
-  //             </Form>
-  //           </Card.Body>
-  //         </Card>
-  //       </Col>
-  //     </Row>
-  //   </Container>
-  // )
-  // First Code ==========================================
 
   return user.id !== null ? (
     <>
