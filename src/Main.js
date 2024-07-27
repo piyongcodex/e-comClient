@@ -4,12 +4,11 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { AppNavBar, Footer } from "./components";
 import { LoginPage, RegisterPage, HomePage, Logout, Error } from "./pages";
-import { AddProduct, DashboardPage, ViewOrderList } from "./admin";
+import { AddProduct, ViewOrderList, AdminPage } from "./admin";
 import { ProductPage, ProfilePage, ProductDetails, CartView } from "./users";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserProvider } from "./UserContext";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import { Container } from "react-bootstrap";
 
 const Main = () => {
   const [user, setUser] = useState({
@@ -52,28 +51,28 @@ const Main = () => {
       <UserProvider value={{ user, setUser, unsetUser }}>
         <Router>
           <AppNavBar />
-          <Container>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/products" element={<ProductPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/logout" element={<Logout />} />
-              {/* ADMIN ROUTE */}
-              <Route path="/addProduct" element={<AddProduct />} />
-              <Route path="/orderslist" element={<ViewOrderList />} />
-              <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/profilepage" element={<ProfilePage />} />
-              <Route path="/cart" element={<CartView />} />
-              <Route path="*" element={<Error />} />
-              <Route
-                path="/productdetails/:pid"
-                element={<ProductDetails />}
-                exact="true"
-              />
-              {/* End of Admin Route */}
-            </Routes>
-          </Container>
+
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/products" element={<ProductPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/logout" element={<Logout />} />
+            {/* ADMIN ROUTE */}
+            <Route path="/addProduct" element={<AddProduct />} />
+            <Route path="/orderslist" element={<ViewOrderList />} />
+            <Route path="/admin" element={<AdminPage />} />
+            <Route path="/profilepage" element={<ProfilePage />} />
+            <Route path="/cart" element={<CartView />} />
+            <Route path="*" element={<Error />} />
+            <Route
+              path="/productdetails/:pid"
+              element={<ProductDetails />}
+              exact="true"
+            />
+            {/* End of Admin Route */}
+          </Routes>
+
           <Footer />
         </Router>
       </UserProvider>

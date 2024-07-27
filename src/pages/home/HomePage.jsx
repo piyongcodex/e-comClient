@@ -1,9 +1,70 @@
 import React from "react";
-import { Container, Row, Col, Carousel, Card, Button } from "react-bootstrap";
+import { Row, Col, Carousel, Card, Button } from "react-bootstrap";
 import "./HomePage.css";
 const HomePage = () => {
+  const products = [
+    { name: "Keyboard", image: "keyboard.png" },
+    { name: "Mouse", image: "mouse.png" },
+    { name: "Headset", image: "headset.png" },
+    { name: "Monitor", image: "monitor.png" },
+    { name: "MOBO", image: "mobo.png" },
+    { name: "GPU", image: "gpu.png" },
+    { name: "PSU", image: "psu.png" },
+    { name: "Laptops", image: "laptops.png" },
+    { name: "SSD", image: "ssd.png" },
+    { name: "Printers", image: "printer.png" },
+    { name: "Processor", image: "processor.png" },
+  ];
+
+  const newproducts = [
+    {
+      name: "RAkk Hannan Pro",
+      image: "rakkhannan.png",
+      price: "P 3,999.00",
+      reviews: "No reviews",
+    },
+    {
+      name: "MSI Bravo 15 B7ED-009PH 15.6",
+      image: "msi-laptop.png",
+      price: "P 34,199.00",
+      reviews: "No reviews",
+    },
+    {
+      name: "AMD Ryzen 7 5700X 8-Core",
+      image: "ryzen-7.png",
+      price: "P 10,799.00",
+      reviews: "No reviews",
+    },
+    {
+      name: "SAMSUNG SSD 860/870 EVO",
+      image: "samsung-evo.png",
+      price: "P 3,280.00",
+      reviews: "No reviews",
+    },
+    {
+      name: "Inplay ATX Power Supply 450W",
+      image: "inplay-psu.png",
+      price: "P 1,755.00",
+      reviews: "No reviews",
+    },
+    {
+      name: "Inplay M066 RGB Gaming Mouse",
+      image: "inplay-mouse.png",
+      price: "P 199.00",
+      reviews: "No reviews",
+    },
+    {
+      name: "Portable Printer Mini Photo",
+      image: "protable-mini.png",
+      price: "P 1,014.00",
+      reviews: "No reviews",
+    },
+
+    // ...add other products here
+  ];
+
   return (
-    <Container>
+    <>
       <Row id="hero" className="mb-3">
         <Col>
           <Carousel interval={3000} pause={false} indicators={true}>
@@ -31,314 +92,126 @@ const HomePage = () => {
           </Carousel>
         </Col>
       </Row>
-      <Row id="types" className="text-center">
-        <Col>
-          <Card style={{ width: "10rem" }} className="card-hover-shadow">
-            <Card.Img
-              variant="top"
-              src="holder.js/100px180../../../images/keyboard.png"
-            />
-            <Card.Body>
-              <Card.Title className="custom-card-title">Keyboard</Card.Title>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col>
-          <Card style={{ width: "10rem" }} className="card-hover-shadow">
-            <Card.Img
-              variant="top"
-              src="holder.js/100px180../../../images/mouse.png"
-            />
-            <Card.Body>
-              <Card.Title className="custom-card-title">Mouse</Card.Title>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col>
-          <Card style={{ width: "10rem" }} className="card-hover-shadow">
-            <Card.Img
-              variant="top"
-              src="holder.js/100px180../../../images/headset.png"
-            />
-            <Card.Body>
-              <Card.Title className="custom-card-title">Headset</Card.Title>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col>
-          <Card style={{ width: "10rem" }} className="card-hover-shadow">
-            <Card.Img
-              variant="top"
-              src="holder.js/100px180../../../images/monitor.png"
-            />
-            <Card.Body>
-              <Card.Title className="custom-card-title">Monitor</Card.Title>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col>
-          <Card style={{ width: "10rem" }} className="card-hover-shadow">
-            <Card.Img
-              variant="top"
-              src="holder.js/100px180../../../images/mobo.png"
-            />
-            <Card.Body>
-              <Card.Title className="custom-card-title">Motherboard</Card.Title>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col>
-          <Card style={{ width: "10rem" }} className="card-hover-shadow">
-            <Card.Img
-              variant="top"
-              src="holder.js/100px180../../../images/gpu.png"
-            />
-            <Card.Body>
-              <Card.Title className="custom-card-title">GPU</Card.Title>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col>
-          <Card style={{ width: "10rem" }} className="card-hover-shadow">
-            <Card.Img
-              variant="top"
-              src="holder.js/100px180../../../images/psu.png"
-            />
-            <Card.Body>
-              <Card.Title className="custom-card-title">
-                Power Supply
-              </Card.Title>
-            </Card.Body>
-          </Card>
-        </Col>
+      <Row id="types" className="justify-content-center">
+        {products.map((product, index) => (
+          <Col key={index} className="d-flex justify-content-center mb-3">
+            <Card
+              style={{ width: "9rem" }}
+              className="card-hover-shadow text-center"
+            >
+              <Card.Img
+                variant="top"
+                src={`../../../images/${product.image}`}
+              />
+              <Card.Body>
+                <Card.Title className="custom-card-title">
+                  {product.name}
+                </Card.Title>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
       </Row>
       <Row id="new-arrivals" className="py-3">
-        <h1 className="new-arrivals-title">New Arrivals</h1>
-        <hr />
-        {/* 1 */}
-        <Col>
-          <Card style={{ width: "13rem" }}>
-            <Card.Img variant="top" src="../../../images/rakkhannan.png" />
-            <Card.Body>
-              <Card.Title className="card-title">RAkk Hannan Pro</Card.Title>
-              <Card.Text className="card-text">P 3,999.00</Card.Text>
-              <div
-                style={{
-                  marginTop: "10px",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-                className="mb-3"
-              >
-                <i className="far fa-star" style={{ color: "#ccc" }}></i>
-                <span style={{ marginLeft: "5px" }} className="card-reviews">
-                  No reviews
-                </span>
-              </div>
-              <div
-                style={{ display: "flex", gap: "10px", alignItems: "center" }}
-              >
-                <Button variant="warning" className="custom-button">
-                  Buy Now
-                </Button>
-                <Button variant="warning" className="custom-button">
-                  <i className="fas fa-cart-plus"></i>
-                </Button>
-              </div>
-            </Card.Body>
-          </Card>
+        <Col xs={12}>
+          <h1 className="new-arrivals-title text-center">New Arrivals</h1>
+          <hr />
         </Col>
-        {/* 2 */}
-        <Col>
-          <Card style={{ width: "13rem" }}>
-            <Card.Img variant="top" src="../../../images/rakkhannan.png" />
-            <Card.Body>
-              <Card.Title className="card-title">RAkk Hannan Pro</Card.Title>
-              <Card.Text className="card-text">P 3,999.00</Card.Text>
-              <div
-                style={{
-                  marginTop: "10px",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-                className="mb-3"
-              >
-                <i className="far fa-star" style={{ color: "#ccc" }}></i>
-                <span style={{ marginLeft: "5px" }} className="card-reviews">
-                  No reviews
-                </span>
-              </div>
-              <div
-                style={{ display: "flex", gap: "10px", alignItems: "center" }}
-              >
-                <Button variant="warning" className="custom-button">
-                  Buy Now
-                </Button>
-                <Button variant="warning" className="custom-button">
-                  <i className="fas fa-cart-plus"></i>
-                </Button>
-              </div>
-            </Card.Body>
-          </Card>
-        </Col>
-        {/* 3 */}
-        <Col>
-          <Card style={{ width: "13rem" }}>
-            <Card.Img variant="top" src="../../../images/rakkhannan.png" />
-            <Card.Body>
-              <Card.Title className="card-title">RAkk Hannan Pro</Card.Title>
-              <Card.Text className="card-text">P 3,999.00</Card.Text>
-              <div
-                style={{
-                  marginTop: "10px",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-                className="mb-3"
-              >
-                <i className="far fa-star" style={{ color: "#ccc" }}></i>
-                <span style={{ marginLeft: "5px" }} className="card-reviews">
-                  No reviews
-                </span>
-              </div>
-              <div
-                style={{ display: "flex", gap: "10px", alignItems: "center" }}
-              >
-                <Button variant="warning" className="custom-button">
-                  Buy Now
-                </Button>
-                <Button variant="warning" className="custom-button">
-                  <i className="fas fa-cart-plus"></i>
-                </Button>
-              </div>
-            </Card.Body>
-          </Card>
-        </Col>
-        {/* 4 */}
-        <Col>
-          <Card style={{ width: "13rem" }}>
-            <Card.Img variant="top" src="../../../images/rakkhannan.png" />
-            <Card.Body>
-              <Card.Title className="card-title">RAkk Hannan Pro</Card.Title>
-              <Card.Text className="card-text">P 3,999.00</Card.Text>
-              <div
-                style={{
-                  marginTop: "10px",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-                className="mb-3"
-              >
-                <i className="far fa-star" style={{ color: "#ccc" }}></i>
-                <span style={{ marginLeft: "5px" }} className="card-reviews">
-                  No reviews
-                </span>
-              </div>
-              <div
-                style={{ display: "flex", gap: "10px", alignItems: "center" }}
-              >
-                <Button variant="warning" className="custom-button">
-                  Buy Now
-                </Button>
-                <Button variant="warning" className="custom-button">
-                  <i className="fas fa-cart-plus"></i>
-                </Button>
-              </div>
-            </Card.Body>
-          </Card>
-        </Col>
-        {/* 5 */}
-        <Col>
-          <Card style={{ width: "13rem" }}>
-            <Card.Img variant="top" src="../../../images/rakkhannan.png" />
-            <Card.Body>
-              <Card.Title className="card-title">RAkk Hannan Pro</Card.Title>
-              <Card.Text className="card-text">P 3,999.00</Card.Text>
-              <div
-                style={{
-                  marginTop: "10px",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-                className="mb-3"
-              >
-                <i className="far fa-star" style={{ color: "#ccc" }}></i>
-                <span style={{ marginLeft: "5px" }} className="card-reviews">
-                  No reviews
-                </span>
-              </div>
-              <div
-                style={{ display: "flex", gap: "10px", alignItems: "center" }}
-              >
-                <Button variant="warning" className="custom-button">
-                  Buy Now
-                </Button>
-                <Button variant="warning" className="custom-button">
-                  <i className="fas fa-cart-plus"></i>
-                </Button>
-              </div>
-            </Card.Body>
-          </Card>
-        </Col>
-        <hr className="mt-3" />
-      </Row>
-      <Row id="reviews">
-        <h1>What Customers say about us</h1>
-        <Col className="text-center">
-          <Card style={{ width: "25rem", height: "11rem" }}>
-            <Card.Body>
-              <Card.Title>Rakk Hannan Pro</Card.Title>
-              <Card.Text>
-                Sobrang sulit! sobrang sarap mag type, take note it can be
-                modified and ang cute ng design.
-              </Card.Text>
-              <i className="fas fa-star" style={{ color: "green" }}></i>
-              <i className="fas fa-star" style={{ color: "green" }}></i>
-              <i className="fas fa-star" style={{ color: "green" }}></i>
-              <i className="fas fa-star" style={{ color: "green" }}></i>
-              <i className="fas fa-star" style={{ color: "green" }}></i>
-              <Card.Subtitle className="mb-2 text-muted">
-                Jennieca
-              </Card.Subtitle>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col className="text-center">
-          <Card style={{ width: "25rem", height: "11rem" }}>
-            <Card.Body>
-              <Card.Title>RAkk Haliya</Card.Title>
-              <Card.Text>
-                Ganda ng design na case na to, sobrang nagustuhan ng husband ko.
-              </Card.Text>
-              <i className="fas fa-star" style={{ color: "green" }}></i>
-              <i className="fas fa-star" style={{ color: "green" }}></i>
-              <i className="fas fa-star" style={{ color: "green" }}></i>
-              <i className="fas fa-star" style={{ color: "green" }}></i>
-              <i className="fas fa-star" style={{ color: "green" }}></i>
-              <Card.Subtitle className="mb-2 text-muted">Ruby</Card.Subtitle>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col className="text-center">
-          <Card style={{ width: "25rem", height: "11rem" }}>
-            <Card.Body>
-              <Card.Title>Logitech G304</Card.Title>
-              <Card.Text>Sobrang gaan gamitin.</Card.Text>
-              <i className="fas fa-star" style={{ color: "green" }}></i>
-              <i className="fas fa-star" style={{ color: "green" }}></i>
-              <i className="fas fa-star" style={{ color: "green" }}></i>
-              <i className="fas fa-star" style={{ color: "green" }}></i>
-              <i className="fas fa-star" style={{ color: "green" }}></i>
-              <Card.Subtitle className="mb-2 text-muted">
-                Princess Mae
-              </Card.Subtitle>
-            </Card.Body>
-          </Card>
+        {newproducts.map((product, index) => (
+          <Col key={index} className="d-flex justify-content-center mb-3">
+            <Card
+              style={{ width: "13rem" }}
+              className="card-hover-shadow text-center"
+            >
+              <Card.Img
+                variant="top"
+                src={`../../../images/${product.image}`}
+              />
+              <Card.Body>
+                <Card.Title className="card-title">{product.name}</Card.Title>
+                <Card.Text className="card-text">{product.price}</Card.Text>
+                <div className="mb-3 d-flex align-items-center justify-content-center">
+                  <i className="far fa-star" style={{ color: "#ccc" }}></i>
+                  <span className="card-reviews ml-2">{product.reviews}</span>
+                </div>
+                <div className="d-flex justify-content-center gap-2">
+                  <Button variant="warning" className="custom-button">
+                    Buy Now
+                  </Button>
+                  <Button variant="warning" className="custom-button">
+                    <i className="fas fa-cart-plus"></i>
+                  </Button>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+        <Col xs={12}>
+          <hr className="mt-3" />
         </Col>
       </Row>
-      <Row id="about">
-        <h1 className="mt-3">PIYONGX-ECOM: The Future of Tech Shopping</h1>
-        <p style={{ textAlign: "justify" }}>
+      <Row id="reviews" className="py-5">
+        <Row className="pb-3">
+          <h1 className="w-100 text-center">What Customers say about us</h1>
+        </Row>
+        <Row className="d-flex justify-content-center">
+          <Col className="text-center" xs={12} md={6} lg={4}>
+            <Card className="mx-auto" style={{ width: "80%", height: "11rem" }}>
+              <Card.Body>
+                <Card.Title>Rakk Hannan Pro</Card.Title>
+                <Card.Text>
+                  Sobrang sulit! sobrang sarap mag type, take note it can be
+                  modified and ang cute ng design.
+                </Card.Text>
+                <i className="fas fa-star" style={{ color: "green" }}></i>
+                <i className="fas fa-star" style={{ color: "green" }}></i>
+                <i className="fas fa-star" style={{ color: "green" }}></i>
+                <i className="fas fa-star" style={{ color: "green" }}></i>
+                <i className="fas fa-star" style={{ color: "green" }}></i>
+                <Card.Subtitle className="mb-2 text-muted">
+                  Jennieca
+                </Card.Subtitle>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col className="text-center" xs={12} md={6} lg={4}>
+            <Card className="mx-auto" style={{ width: "80%", height: "11rem" }}>
+              <Card.Body>
+                <Card.Title>RAkk Haliya</Card.Title>
+                <Card.Text>
+                  Ganda ng design na case na to, sobrang nagustuhan ng husband
+                  ko.
+                </Card.Text>
+                <i className="fas fa-star" style={{ color: "green" }}></i>
+                <i className="fas fa-star" style={{ color: "green" }}></i>
+                <i className="fas fa-star" style={{ color: "green" }}></i>
+                <i className="fas fa-star" style={{ color: "green" }}></i>
+                <i className="fas fa-star" style={{ color: "green" }}></i>
+                <Card.Subtitle className="mb-2 text-muted">Ruby</Card.Subtitle>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col className="text-center" xs={12} md={6} lg={4}>
+            <Card className="mx-auto" style={{ width: "80%", height: "11rem" }}>
+              <Card.Body>
+                <Card.Title>Logitech G304</Card.Title>
+                <Card.Text>Sobrang gaan gamitin.</Card.Text>
+                <i className="fas fa-star" style={{ color: "green" }}></i>
+                <i className="fas fa-star" style={{ color: "green" }}></i>
+                <i className="fas fa-star" style={{ color: "green" }}></i>
+                <i className="fas fa-star" style={{ color: "green" }}></i>
+                <i className="fas fa-star" style={{ color: "green" }}></i>
+                <Card.Subtitle className="mb-2 text-muted">
+                  Princess Mae
+                </Card.Subtitle>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Row>
+      <Row id="about" className="py-5">
+        <h1 className="pb-3">PIYONGX-ECOM: The Future of Tech Shopping</h1>
+        <p style={{ textAlign: "justify" }} className="px-4">
           In today's fast-paced world, convenience is a top priority for
           everyone, and the realm of online shopping has transformed the way we
           purchase goods and services. EasyPC, your go-to computer store online,
@@ -350,7 +223,7 @@ const HomePage = () => {
           has become the ultimate destination for tech enthusiasts and casual
           users alike.
         </p>
-        <p style={{ textAlign: "justify" }}>
+        <p style={{ textAlign: "justify" }} className="px-4">
           In today's fast-paced world, convenience is a top priority for
           everyone, and the realm of online shopping has transformed the way we
           purchase goods and services. EasyPC, your go-to computer store online,
@@ -363,7 +236,7 @@ const HomePage = () => {
           users alike.
         </p>
       </Row>
-    </Container>
+    </>
   );
 };
 

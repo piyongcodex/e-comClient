@@ -32,39 +32,36 @@ const ViewOrderList = () => {
   }, []);
   return (
     <>
-      <Container>
-        <h1 className="display-1 text-center mt-5">Orders List</h1>
-        <Table responsive striped bordered className="mt-5">
-          <thead>
-            <tr className="text-center">
-              <th>Order I.D.</th>
-              <th>User I.D.</th>
-              <th className="p-2">Products Ordered</th>
-              <th className="p-2">Total</th>
-              <th className="p-2">Date</th>
-              <th>Status</th>
+      <Table responsive striped bordered className="mt-5">
+        <thead>
+          <tr className="text-center">
+            <th>Order I.D.</th>
+            <th>User I.D.</th>
+            <th className="p-2">Products Ordered</th>
+            <th className="p-2">Total</th>
+            <th className="p-2">Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody className="text-center">
+          {orders.map((order) => (
+            <tr key={order._id}>
+              <td className="p-3">{order._id}</td>
+              <FetchUserName userId={order.userId} />
+              <FetchOrderByUser orderId={order._id} />
+              <td>$ {parseFloat(order.totalPrice)}</td>
+              <OrderDate order={order} />
+              <td>
+                {order.status === "Pending" ? (
+                  <Button>Pending</Button>
+                ) : (
+                  <Button>Completed</Button>
+                )}
+              </td>
             </tr>
-          </thead>
-          <tbody className="text-center">
-            {orders.map((order) => (
-              <tr key={order._id}>
-                <td className="p-3">{order._id}</td>
-                <FetchUserName userId={order.userId} />
-                <FetchOrderByUser orderId={order._id} />
-                <td>$ {parseFloat(order.totalPrice)}</td>
-                <OrderDate order={order} />
-                <td>
-                  {order.status === "Pending" ? (
-                    <Button>Pending</Button>
-                  ) : (
-                    <Button>Completed</Button>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </Container>
+          ))}
+        </tbody>
+      </Table>
     </>
   );
 };

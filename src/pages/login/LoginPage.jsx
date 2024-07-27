@@ -86,13 +86,7 @@ const LoginPage = () => {
   }, [email, password]);
 
   return user.id !== null ? (
-    <>
-      {user.isAdmin ? (
-        <Navigate to="/dashboard" />
-      ) : (
-        <Navigate to="/products" />
-      )}
-    </>
+    <>{user.isAdmin ? <Navigate to="/admin" /> : <Navigate to="/products" />}</>
   ) : (
     <Container>
       <h1 className="display-1 text-center mt-5 mb-5">Login</h1>
