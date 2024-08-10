@@ -14,7 +14,6 @@ const LoginPage = () => {
 
   //login
   function login(e) {
-    console.log("asdasd");
     e.preventDefault();
     fetch(`${process.env.REACT_APP_API_BASE_URL}/users/login`, {
       method: "POST",
@@ -28,8 +27,7 @@ const LoginPage = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log(email);
-        // console.log(password);
+        // console.log(data);
         if (data.access) {
           localStorage.setItem("token", data.access);
           retrieveUserDetails(data.access);
@@ -86,7 +84,7 @@ const LoginPage = () => {
   }, [email, password]);
 
   return user.id !== null ? (
-    <>{user.isAdmin ? <Navigate to="/admin" /> : <Navigate to="/products" />}</>
+    <>{user.isAdmin ? <Navigate to="/admin" /> : <Navigate to="/" />}</>
   ) : (
     <Container>
       <h1 className="display-1 text-center mt-5 mb-5">Login</h1>

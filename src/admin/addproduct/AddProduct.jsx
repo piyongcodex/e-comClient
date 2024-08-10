@@ -1,45 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Col, Row, Image } from "react-bootstrap";
+import { Button, Form, Col, Row, Image, Spinner } from "react-bootstrap";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import Swal from "sweetalert2";
 import app from "../../Firebase";
+import "./AddProduct.css"; // Assuming you have a CSS file for styling
 
-const AddProduct = () => {
+const AddProduct = ({ reload }) => {
   const [name, setName] = useState("");
+  const [category, setCategory] = useState("");
   const [desc, setDesc] = useState("");
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null); // Added state for image preview
+  const [imagePreview, setImagePreview] = useState(null);
   const [isDisabled, setIsDisabled] = useState(true);
-
-  const checkProductExists = async () => {
-    try {
-      const response = await fetch(
-        `${
-          process.env.REACT_APP_API_BASE_URL
-        }/products?name=${encodeURIComponent(name)}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      const data = await response.json();
-      return data.exists; // Assuming the API returns an object with an 'exists' property
-    } catch (error) {
-      console.error("Error checking if product exists:", error);
-      return false;
-    }
-  };
+  const [loading, setLoading] = useState(false);
 
   const uploadImage = async () => {
     if (image) {
       try {
         const storage = getStorage(app);
-        const timestamp = new Date().getTime(); // Get current timestamp
-        const imageName = `${timestamp}_${image.name}`; // Create a unique image name
-        const storageRef = ref(storage, `images/${imageName}`); // Reference with unique name
+        const timestamp = new Date().getTime();
+        const imageName = `${timestamp}_${image.name}`;
+        const storageRef = ref(storage, `images/${imageName}`);
         await uploadBytes(storageRef, image);
         const downloadUrl = await getDownloadURL(storageRef);
         return downloadUrl;
@@ -52,19 +34,23 @@ const AddProduct = () => {
   };
 
   useEffect(() => {
-    if (name === "" || desc === "" || price <= 0) {
+    if (
+      name === "" ||
+      desc === "" ||
+      price <= 0 ||
+      imagePreview === null ||
+      category === ""
+    ) {
       setIsDisabled(true);
     } else {
       setIsDisabled(false);
     }
-  }, [name, desc, price]);
+  }, [name, desc, price, imagePreview, category]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setImage(file);
-
-      // Create a local URL for preview
       const objectUrl = URL.createObjectURL(file);
       setImagePreview(objectUrl);
 
@@ -75,63 +61,75 @@ const AddProduct = () => {
 
   const create = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    const productExists = await checkProductExists(); // Check if the product exists
-
-    if (productExists) {
-      Swal.fire({
-        title: "Product exists",
-        icon: "warning",
-        showConfirmButton: true,
-      });
-      return;
-    }
-
-    const imageURL = await uploadImage(); // Upload the image and get the URL
-
-    fetch(`${process.env.REACT_APP_API_BASE_URL}/products/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      body: JSON.stringify({
-        name: name,
+    try {
+      const imageURL = await uploadImage();
+      const product = {
+        name,
         description: desc,
-        price: price,
-        imageURL: imageURL,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.product) {
-          Swal.fire({
-            title: "New product added",
-            icon: "success",
-            text: `${name}: Php ${parseFloat(price).toFixed(2)}`,
-            showConfirmButton: true,
-          });
-          // Reset all fields
-          setName("");
-          setPrice(0);
-          setDesc("");
-          setImage(null); // Reset image
-          setImagePreview(null); // Reset image preview
-        } else if (data.error === "Product already exists") {
-          Swal.fire({
-            title: "Product exists",
-            icon: "warning",
-            showConfirmButton: true,
-          });
-        } else {
-          Swal.fire({
-            title: "An error occurred",
-            icon: "error",
-            text: "Please try again",
-            showConfirmButton: true,
-          });
+        category,
+        price,
+        imageURL,
+      };
+
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/products/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(product),
         }
-      });
+      );
+
+      const data = await response.json();
+      handleResponse(data, product.name, product.price);
+    } catch (error) {
+      showAlert("An error occurred", "error", "Please try again");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleResponse = (data, name, price) => {
+    if (data.product) {
+      showAlert(
+        "New product added",
+        "success",
+        `${name}: Php ${parseFloat(price).toFixed(2)}`
+      );
+      resetFields();
+      // onSuccess(); // Notify parent component of success
+      reload();
+    } else if (data.error === "Product already exists") {
+      showAlert("Product exists", "warning");
+    } else {
+      showAlert("An error occurred", "error", "Please try again");
+    }
+  };
+
+  const showAlert = (title, icon, text = "", showConfirmButton = true) => {
+    Swal.fire({
+      title,
+      icon,
+      text,
+      showConfirmButton,
+    });
+  };
+
+  const resetFields = () => {
+    setName("");
+    setCategory(""); // This will make the select box default to the first option
+    setPrice(0);
+    setDesc("");
+    setImage(null);
+    setImagePreview(null);
+
+    // Reset file input value
+    document.getElementById("imageUpload").value = ""; // Clear the file input value
   };
 
   return (
@@ -170,8 +168,33 @@ const AddProduct = () => {
             </Form.Group>
 
             <Form.Group className="mb-3">
+              <Form.Label>Category</Form.Label>
+              <Form.Select
+                aria-label="Default select example"
+                value={category === "" ? "category" : category} // Adjust based on your options
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                <option value="category">Category</option>{" "}
+                {/* Default option */}
+                <option value="Keyboard">Keyboard</option>
+                <option value="Mouse">Mouse</option>
+                <option value="Headset">Headset</option>
+                <option value="Monitor">Monitor</option>
+                <option value="MOBO">MOBO</option>
+                <option value="GPU">GPU</option>
+                <option value="PSU">PSU</option>
+                <option value="Laptop">Laptop</option>
+                <option value="SSD">SSD</option>
+                <option value="Printer">Printer</option>
+                <option value="CPU">CPU</option>
+                <option value="Others">Others</option>
+              </Form.Select>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
               <Form.Label>Product Image</Form.Label>
               <Form.Control
+                id="imageUpload"
                 type="file"
                 accept="image/*"
                 onChange={(e) => handleImageChange(e)}
@@ -193,6 +216,11 @@ const AddProduct = () => {
           </Form>
         </Col>
       </Row>
+      {loading && (
+        <div className="overlay">
+          <Spinner animation="border" variant="primary" />
+        </div>
+      )}
     </>
   );
 };

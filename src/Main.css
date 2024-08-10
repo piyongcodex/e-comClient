@@ -1,0 +1,9 @@
+.navbar-bg {
+  width: 100%;
+  background-color: #fca311; /* Adjust color as needed */
+}
+
+.navbar-bg .container {
+  padding-left: 0;
+  padding-right: 0;
+}

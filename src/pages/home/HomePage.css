@@ -1,16 +1,9 @@
 @import url("https://fonts.cdnfonts.com/css/sf-ui-display");
-.custom-card-title {
+.hero-container .custom-card-title {
   font-family: "SF UI Display", sans-serif;
   font-weight: 600;
   font-size: 1rem;
   color: #343435; /* Optional: Set a different color on hover */
-}
-.card-hover-shadow {
-  transition: box-shadow 0.3s ease-in-out;
-}
-
-.card-hover-shadow:hover {
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 .new-arrivals-title {
   font-family: "SF UI Display", sans-serif;
@@ -37,4 +30,15 @@
   font-family: "SF UI Display", sans-serif;
   font-weight: 300;
   font-size: 1rem;
+}
+.hero-container {
+  background-color: #ffffff;
+}
+/* Assuming you have a CSS file or a <style> block */
+.col-hover-shadow {
+  transition: box-shadow 0.3s ease-in-out; /* Smooth transition for shadow effect */
+}
+
+.col-hover-shadow:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
 }

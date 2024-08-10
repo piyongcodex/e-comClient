@@ -2,6 +2,7 @@
 
 .custom-navbar {
   background-color: #fca311; /* Replace with your desired color */
+  height: 40px;
 }
 
 .custom-navbar .nav-link:hover {
@@ -10,17 +11,20 @@
 .custom-navbar .nav-link {
   font-family: "SF UI Display", sans-serif;
   font-size: 1rem;
+  font-weight: 350;
   color: #f8f9fa; /* Optional: Set a different color on hover */
 }
 .custom-navbar .dropdown-menu {
   font-family: "SF UI Display", sans-serif;
-  background-color: #fca311; /* Match the navbar's background color */
+  background-color: #f8f9fa; /* Match the navbar's background color */
   color: white; /* Set text color in dropdown */
 }
 
 .custom-navbar .dropdown-item {
   font-family: "SF UI Display", sans-serif;
-  color: white; /* Set color for dropdown items */
+  color: #2a2b2b; /* Set color for dropdown items */
+  font-weight: 500;
+  font-size: 1rem;
 }
 
 .custom-navbar .dropdown-item:hover {

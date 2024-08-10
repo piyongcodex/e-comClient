@@ -1,10 +1,13 @@
-import React from "react";
-import { Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { Button, Spinner } from "react-bootstrap";
 import Swal from "sweetalert2";
+import "./ArchiveProduct.css"; // Assuming you have a CSS file for styling
 
-const ArchiveProduct = ({ product, isActive }) => {
-  //archive
+const ArchiveProduct = ({ product, isActive, reload }) => {
+  const [loading, setLoading] = useState(false);
+
   const archiveToggle = (productId) => {
+    setLoading(true);
     fetch(
       `${process.env.REACT_APP_API_BASE_URL}/products/${productId}/archive`,
       {
@@ -17,11 +20,13 @@ const ArchiveProduct = ({ product, isActive }) => {
     )
       .then((res) => res.json())
       .then((data) => {
+        setLoading(false);
         if (data.message === "Product archived successfully") {
           Swal.fire({
             title: "Product archived successfully",
             icon: "success",
           });
+          reload();
         } else {
           Swal.fire({
             title: "Something Went Wrong",
@@ -31,8 +36,9 @@ const ArchiveProduct = ({ product, isActive }) => {
         }
       });
   };
-  //activate
+
   const activateToggle = (productId) => {
+    setLoading(true);
     fetch(
       `${process.env.REACT_APP_API_BASE_URL}/products/${productId}/activate`,
       {
@@ -45,14 +51,13 @@ const ArchiveProduct = ({ product, isActive }) => {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-
-        // data.message can also be used as condition
+        setLoading(false);
         if (data.message === "Product activated successfully") {
           Swal.fire({
             title: "Product activated",
             icon: "success",
           });
+          reload();
         } else {
           Swal.fire({
             title: "Something Went Wrong",
@@ -64,26 +69,31 @@ const ArchiveProduct = ({ product, isActive }) => {
   };
 
   return (
-    <div>
-      <>
-        {isActive ? (
-          <Button
-            variant="danger"
-            size="sm"
-            onClick={() => archiveToggle(product)}
-          >
-            Archive
-          </Button>
-        ) : (
-          <Button
-            variant="success"
-            size="sm"
-            onClick={() => activateToggle(product)}
-          >
-            Activate
-          </Button>
-        )}
-      </>
+    <div className="archive-product">
+      {loading && (
+        <div className="overlay">
+          <Spinner animation="border" variant="primary" />
+        </div>
+      )}
+      {isActive ? (
+        <Button
+          variant="danger"
+          size="sm"
+          onClick={() => archiveToggle(product)}
+          disabled={loading}
+        >
+          Archive
+        </Button>
+      ) : (
+        <Button
+          variant="success"
+          size="sm"
+          onClick={() => activateToggle(product)}
+          disabled={loading}
+        >
+          Activate
+        </Button>
+      )}
     </div>
   );
 };

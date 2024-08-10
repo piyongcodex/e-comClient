@@ -13,15 +13,9 @@ const AppNavBar = () => {
   const handleMouseLeave = () => setDropdownOpen(false);
 
   return (
-    <Navbar className="custom-navbar sticky-top">
-      <Navbar.Brand href="/" className="me-auto ms-3">
-        <img
-          src="../../images/logo.png"
-          alt="Brand Logo"
-          style={{ width: "100px", height: "30px" }} // Adjust size as needed
-        />
-      </Navbar.Brand>
-      <Nav className="justify-content-end me-3">
+    <Navbar className="custom-navbar">
+      <Navbar.Brand href="/" className=""></Navbar.Brand>
+      <Nav className="ms-auto">
         {user.id !== null ? (
           <>
             {user.isAdmin ? null : (
@@ -31,7 +25,7 @@ const AppNavBar = () => {
                 </Nav.Link>
               </>
             )}
-            <Nav className="ml-auto me-3">
+            <Nav className="">
               <Nav.Link
                 className="dropdown-toggle"
                 onMouseEnter={handleMouseEnter}
@@ -49,21 +43,21 @@ const AppNavBar = () => {
                 <Dropdown.Menu>
                   {!user.isAdmin ? (
                     <Dropdown.Item as={NavLink} to="/profilepage/orders">
-                      <i className="fas fa-box"></i> Your Orders
+                      Your Orders
                     </Dropdown.Item>
                   ) : null}
                   <Dropdown.Item as={NavLink} to="/profilepage">
-                    <i className="fas fa-cog"></i> Account Settings
+                    Account Settings
                   </Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item as={NavLink} to="/logout">
-                    <i className="fas fa-sign-out-alt"></i> Logout
+                    Logout
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
               {!user.isAdmin ? (
                 <Nav.Link as={Link} to="/cart">
-                  <i className="fas fa-shopping-cart fa-lg"></i>
+                  <i className="fas fa-shopping-cart"></i>
                 </Nav.Link>
               ) : null}
             </Nav>
@@ -72,7 +66,10 @@ const AppNavBar = () => {
           <>
             <Nav>
               <Nav.Link as={Link} to="/login">
-                <i className="fas fa-sign-in-alt"></i> Sign in
+                Log in
+              </Nav.Link>
+              <Nav.Link as={Link} to="/register">
+                Sign Up
               </Nav.Link>
             </Nav>
           </>
